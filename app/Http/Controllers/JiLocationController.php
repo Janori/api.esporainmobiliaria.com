@@ -8,7 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\JiLocation;
 
-use App\Helpers\Response;
+use App\Helpers\JResponse;
 
 class JiLocationController extends Controller{
 
@@ -31,12 +31,13 @@ class JiLocationController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function show($id){
-        if(is_null($id) || !is_numeric($id)) return Response::set(false, 'Error en la petición');
+        if(is_null($id) || !is_numeric($id)) 
+            return response()->json(Response::set(false, 'Error en la petición'));
         $location = JiLocation::find($id);
         if($location == null)
-            return Response::set(false, 'Location not found');
+            return response()->json(Response::set(false, 'Location not found'));
         else
-            return Response::set(true, '', $location);
+            return response()->json(Response::set(true, '', $location));
     }
 
     /**
@@ -47,7 +48,8 @@ class JiLocationController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id){
-        if(is_null($id) || !is_numeric($id)) return Response::set(false, 'Error en la petición');
+        if(is_null($id) || !is_numeric($id)) 
+            return response()->json(Response::set(false, 'Error en la petición'));
         $location = JiLocation::find($id);
 
         foreach ($request->all() as $key => $value)
@@ -55,7 +57,7 @@ class JiLocationController extends Controller{
                 $location->{$key} = $value;
 
         $location->save();
-        return Response::set(true, 'Se ha actualizado correctamente la ubicacion', $location);
+        return response()->json(Response::set(true, 'Se ha actualizado correctamente la ubicacion', $location));
     }
 
     /**
@@ -65,7 +67,8 @@ class JiLocationController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function destroy($id){
-        if(is_null($id) || !is_numeric($id)) return Response::set(false, 'Error en la petición');
+        if(is_null($id) || !is_numeric($id)) 
+            return response()->json(Response::set(false, 'Error en la petición'));
         return 'hi';
     }
 }

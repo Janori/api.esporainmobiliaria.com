@@ -8,7 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\JiHousing;
 
-use App\Helpers\Response;
+use App\Helpers\JResponse;
 
 class JiHousingController extends Controller{ 
     /**
@@ -33,9 +33,9 @@ class JiHousingController extends Controller{
         if(is_null($id) || !is_numeric($id)) return Response::set(false, 'Error en la petición');
         $housing = Jihousing::find($id);
         if($housing == null)
-            return Response::set(false, 'Casa no encontrada');
+            return response()->json(Response::set(false, 'Casa no encontrada'));
         else
-            return Response::set(true, '', $housing);
+            return response()->json(Response::set(true, '', $housing));
     }
 
     /**
@@ -54,7 +54,7 @@ class JiHousingController extends Controller{
                 $housing->{$key} = $value;
 
         $housing->save();
-        return Response::set(true, 'Se han actualizado correctamente los datos de la casa', $housing);
+        return response()->json(Response::set(true, 'Se han actualizado correctamente los datos de la casa', $housing));
     }
 
     /**
@@ -64,7 +64,8 @@ class JiHousingController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function destroy($id){
-        if(is_null($id) || !is_numeric($id)) return Response::set(false, 'Error en la petición');
+        if(is_null($id) || !is_numeric($id)) 
+            return response()->json(Response::set(false, 'Error en la petición'));
         return 'hi';
     }
 }

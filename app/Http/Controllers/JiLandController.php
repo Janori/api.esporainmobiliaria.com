@@ -8,7 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\JiLand;
 
-use App\Helpers\Response;
+use App\Helpers\JResponse;
 
 class JiLandController extends Controller{
     /**
@@ -30,12 +30,12 @@ class JiLandController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function show($id){
-        if(is_null($id) || !is_numeric($id)) return Response::set(false, 'Error en la petición');
+        if(is_null($id) || !is_numeric($id)) return response()->json(JResponse::set(false, 'Error en la petición'));
         $land = JiLand::find($id);
         if($land == null)
-            return Response::set(false, 'Terreno no encontrado');
+            return response()->json(JResponse::set(false, 'Terreno no encontrado'));
         else
-            return Response::set(true, '', $land);
+            return response()->json(JResponse::set(true, '', $land));
     }
 
     /**
@@ -46,7 +46,7 @@ class JiLandController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id){
-        if(is_null($id) || !is_numeric($id)) return Response::set(false, 'Error en la petición');
+        if(is_null($id) || !is_numeric($id)) return response()->json(JResponse::set(false, 'Error en la petición'));
         $land = JiLand::find($id);
 
         foreach ($request->all() as $key => $value)
@@ -54,7 +54,7 @@ class JiLandController extends Controller{
                 $land->{$key} = $value;
 
         $land->save();
-        return Response::set(true, 'Se han actualizado correctamente los datos del terreno', $land);
+        return response()->json(JResponse::set(true, 'Se han actualizado correctamente los datos del terreno', $land));
     }
 
     /**
@@ -64,7 +64,8 @@ class JiLandController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function destroy($id){
-        if(is_null($id) || !is_numeric($id)) return Response::set(false, 'Error en la petición');
+        if(is_null($id) || !is_numeric($id)) 
+            return response()->json(JResponse::set(false, 'Error en la petición'));
         return 'hi';
     }
 }

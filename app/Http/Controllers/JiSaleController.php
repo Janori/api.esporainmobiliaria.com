@@ -8,7 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\JiSale;
 
-use App\Helpers\Response;
+use App\Helpers\JResponse;
 
 class JiSaleController extends Controller{
     /**
@@ -30,12 +30,13 @@ class JiSaleController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function show($id){
-        if(is_null($id) || !is_numeric($id)) return Response::set(false, 'Error en la petición');
+        if(is_null($id) || !is_numeric($id)) 
+            return response()->json(JResponse::set(false, 'Error en la petición'));
         $sale = JiSale::find($id);
         if($sale == null)
-            return Response::set(false, 'Venta no encontrada');
+            return response()->json(JResponse::set(false, 'Venta no encontrada'));
         else
-            return Response::set(true, '', $sale);
+            return response()->json(JResponse::set(true, '', $sale));
     }
 
     /**
@@ -46,7 +47,8 @@ class JiSaleController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id){
-        if(is_null($id) || !is_numeric($id)) return Response::set(false, 'Error en la petición');
+        if(is_null($id) || !is_numeric($id)) 
+            return response()->json(JResponse::set(false, 'Error en la petición'));
         $sale = JiSale::find($id);
 
         foreach ($request->all() as $key => $value)
@@ -54,7 +56,7 @@ class JiSaleController extends Controller{
                 $sale->{$key} = $value;
 
         $sale->save();
-        return Response::set(true, 'Se han actualizado correctamente los datos de la venta', $sale);
+        return response()->json(JResponse::set(true, 'Se han actualizado correctamente los datos de la venta', $sale));
     }
 
     /**
@@ -64,7 +66,8 @@ class JiSaleController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function destroy($id){
-        if(is_null($id) || !is_numeric($id)) return Response::set(false, 'Error en la petición');
+        if(is_null($id) || !is_numeric($id)) 
+            return response()->json(JResponse::set(false, 'Error en la petición'));
         return 'hi';
     }
 }

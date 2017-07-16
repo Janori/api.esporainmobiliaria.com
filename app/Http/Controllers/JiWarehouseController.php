@@ -30,12 +30,13 @@ class JiWarehouseController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function show($id){
-        if(is_null($id) || !is_numeric($id)) return Response::set(false, 'Error en la petición');
+        if(is_null($id) || !is_numeric($id)) 
+            return response()->json(JResponse::set(false, 'Error en la petición'));
         $wharehouse = JiWharehouse::find($id);
         if($wharehouse == null)
-            return Response::set(false, 'Bodega no encontrada');
+            return response()->json(JResponse::set(false, 'Bodega no encontrada'));
         else
-            return Response::set(true, '', $wharehouse);
+            return response()->json(JResponse::set(true, '', $wharehouse));
     }
 
     /**
@@ -46,7 +47,7 @@ class JiWarehouseController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id){
-        if(is_null($id) || !is_numeric($id)) return Response::set(false, 'Error en la petición');
+        if(is_null($id) || !is_numeric($id)) return JResponse::set(false, 'Error en la petición');
         $wharehouse = JiWharehouse::find($id);
 
         foreach ($request->all() as $key => $value)
@@ -54,7 +55,7 @@ class JiWarehouseController extends Controller{
                 $wharehouse->{$key} = $value;
 
         $wharehouse->save();
-        return Response::set(true, 'Se han actualizado correctamente los datos de la bodega', $wharehouse);
+        return response()->json(JResponse::set(true, 'Se han actualizado correctamente los datos de la bodega', $wharehouse));
     }
 
     /**
@@ -64,7 +65,7 @@ class JiWarehouseController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function destroy($id){
-        if(is_null($id) || !is_numeric($id)) return Response::set(false, 'Error en la petición');
+        if(is_null($id) || !is_numeric($id)) return JResponse::set(false, 'Error en la petición');
         return 'hi';
     }
 }

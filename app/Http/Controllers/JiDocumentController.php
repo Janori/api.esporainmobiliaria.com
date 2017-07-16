@@ -8,7 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\JiDocument;
 
-use App\Helpers\Response;
+use App\Helpers\JResponse;
 
 class JiDocumentController extends Controller{
     /**
@@ -30,12 +30,13 @@ class JiDocumentController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function show($id){
-        if(is_null($id) || !is_numeric($id)) return Response::set(false, 'Error en la petición');
+        if(is_null($id) || !is_numeric($id)) 
+            return response()->json(JResponse::set(false, 'Error en la petición'));
         $document = JiDocument::find($id);
         if($document == null)
-            return Response::set(false, 'Edificio no encontrado');
+            return response()->json(JResponse::set(false, 'Edificio no encontrado'));
         else
-            return Response::set(true, '', $document);
+            return response()->json(JResponse::set(true, '', $document));
     }
 
     /**
@@ -46,7 +47,8 @@ class JiDocumentController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id){
-        if(is_null($id) || !is_numeric($id)) return Response::set(false, 'Error en la petición');
+        if(is_null($id) || !is_numeric($id)) 
+            return response()->json(JResponse::set(false, 'Error en la petición'));
         $document = JiDocument::find($id);
 
         foreach ($request->all() as $key => $value)
@@ -54,7 +56,7 @@ class JiDocumentController extends Controller{
                 $document->{$key} = $value;
 
         $document->save();
-        return Response::set(true, 'Se ha actualizado correctamente el edificio', $document);
+        return response()->json(JResponse::set(true, 'Se ha actualizado correctamente el edificio', $document));
     }
 
     /**
@@ -64,7 +66,8 @@ class JiDocumentController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function destroy($id){
-        if(is_null($id) || !is_numeric($id)) return Response::set(false, 'Error en la petición');
+        if(is_null($id) || !is_numeric($id)) 
+            return response()->json(JResponse::set(false, 'Error en la petición'));
         return 'hi';
     }
 }

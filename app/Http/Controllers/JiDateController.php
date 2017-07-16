@@ -8,7 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\JiDate;
 
-use App\Helpers\Response;
+use App\Helpers\JResponse;
 
 class JiDateController extends Controller{
     /**
@@ -30,12 +30,12 @@ class JiDateController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function show($id){
-        if(is_null($id) || !is_numeric($id)) return Response::set(false, 'Error en la petición');
+        if(is_null($id) || !is_numeric($id)) return JResponse::set(false, 'Error en la petición');
         $date = JiDate::find($id);
         if($date == null)
-            return Response::set(false, 'Edificio no encontrado');
+            return response()->json(JResponse::set(false, 'Edificio no encontrado'));
         else
-            return Response::set(true, '', $date);
+            return response()->json(JResponse::set(true, '', $date));
     }
 
     /**
@@ -46,7 +46,8 @@ class JiDateController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id){
-        if(is_null($id) || !is_numeric($id)) return Response::set(false, 'Error en la petición');
+        if(is_null($id) || !is_numeric($id)) 
+            return response()->json(JResponse::set(false, 'Error en la petición'));
         $date = JiDate::find($id);
 
         foreach ($request->all() as $key => $value)
@@ -54,7 +55,7 @@ class JiDateController extends Controller{
                 $date->{$key} = $value;
 
         $date->save();
-        return Response::set(true, 'Se ha actualizado correctamente el edificio', $date);
+        return response()->json(JResponse::set(true, 'Se ha actualizado correctamente el edificio', $date));
     }
 
     /**
@@ -64,7 +65,8 @@ class JiDateController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function destroy($id){
-        if(is_null($id) || !is_numeric($id)) return Response::set(false, 'Error en la petición');
+        if(is_null($id) || !is_numeric($id)) 
+            return response()->json(JResponse::set(false, 'Error en la petición'));
         return 'hi';
     }
 }

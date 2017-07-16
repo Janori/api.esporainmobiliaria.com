@@ -8,7 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Models\JiCustomer;
-use App\Helpers\Response;
+use App\Helpers\JResponse;
 
 class JiCustomerController extends Controller
 {
@@ -16,13 +16,13 @@ class JiCustomerController extends Controller
     public function options($option){
         switch ($option) {
             case 'gender':
-                return Response::set(true, '', JiCustomer::$gender_options);
+                return response()->json(JResponse::set(true, '', JiCustomer::$gender_options));
             case 'kind':
-                return Response::set(true, '', JiCustomer::$kind_options);
+                return response()->json(JResponse::set(true, '', JiCustomer::$kind_options));
             case 'mstatus':
-                return Response::set(true, '', JiCustomer::$mstatus_options);
+                return response()->json(JResponse::set(true, '', JiCustomer::$mstatus_options));
             default:
-                return Response::set(false, 'Invalid option: ' . $option);
+                return response()->json(JResponse::set(false, 'Invalid option: ' . $option));
         }
     }
 
@@ -46,12 +46,13 @@ class JiCustomerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id){
-        if(is_null($id) || !is_numeric($id)) return Response::set(false, 'Error en la petición');
+        if(is_null($id) || !is_numeric($id)) 
+            return response()->json(JResponse::set(false, 'Error en la petición'));
         $customer = JiCustomer::find($id);
         if($customer == null)
-            return Response::set(false, 'User not found');
+            return response()->json(JResponse::set(false, 'User not found'));
         else
-            return Response::set(true, '', $customer);
+            return response()->json(JResponse::set(true, '', $customer));
     }
 
     /**
@@ -62,7 +63,8 @@ class JiCustomerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id){
-        if(is_null($id) || !is_numeric($id)) return Response::set(false, 'Error en la petición');
+        if(is_null($id) || !is_numeric($id)) 
+            return response()->json(JResponse::set(false, 'Error en la petición'));
         $customer = JiCustomer::find($id);
 
         foreach ($request->all() as $key => $value)
@@ -70,7 +72,7 @@ class JiCustomerController extends Controller
                 $customer->{$key} = $value;
 
         $customer->save();
-        return Response::set(true, 'Se ha actualizado correctamente al cliente', $customer);
+        return response()->json(JResponse::set(true, 'Se ha actualizado correctamente al cliente', $customer));
     }
 
     /**
@@ -80,7 +82,8 @@ class JiCustomerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id){
-        if(is_null($id) || !is_numeric($id)) return Response::set(false, 'Error en la petición');
+        if(is_null($id) || !is_numeric($id))
+          return response()->json(JResponse::set(false, 'Error en la petición'));
         return 'hi';
     }
 }

@@ -8,7 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\JiPhone;
 
-use App\Helpers\Response;
+use App\Helpers\JResponse;
 
 class JiPhoneController extends Controller{
     /**
@@ -30,12 +30,13 @@ class JiPhoneController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function show($id){
-        if(is_null($id) || !is_numeric($id)) return Response::set(false, 'Error en la petición');
+        if(is_null($id) || !is_numeric($id)) 
+            return response()->json(JResponse::set(false, 'Error en la petición'));
         $phone = JiPhone::find($id);
         if($phone == null)
-            return Response::set(false, 'Telefono no encontrado');
+            return response()->json(JResponse::set(false, 'Telefono no encontrado'));
         else
-            return Response::set(true, '', $phone);
+            return response()->json(JResponse::set(true, '', $phone));
     }
 
     /**
@@ -46,7 +47,8 @@ class JiPhoneController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id){
-        if(is_null($id) || !is_numeric($id)) return Response::set(false, 'Error en la petición');
+        if(is_null($id) || !is_numeric($id)) 
+            return response()->json(JResponse::set(false, 'Error en la petición'));
         $phone = JiPhone::find($id);
 
         foreach ($request->all() as $key => $value)
@@ -54,7 +56,7 @@ class JiPhoneController extends Controller{
                 $phone->{$key} = $value;
 
         $phone->save();
-        return Response::set(true, 'Se han actualizado correctamente los datos del teléfono', $phone);
+        return response()->json(JResponse::set(true, 'Se han actualizado correctamente los datos del teléfono', $phone));
     }
 
     /**
@@ -64,7 +66,8 @@ class JiPhoneController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function destroy($id){
-        if(is_null($id) || !is_numeric($id)) return Response::set(false, 'Error en la petición');
+        if(is_null($id) || !is_numeric($id)) 
+            return response()->json(JResponse::set(false, 'Error en la petición'));
         return 'hi';
     }
 }

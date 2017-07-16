@@ -13,6 +13,7 @@ use App\Http\Controllers\Controller;
 use App\User;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use App\Helpers\JResponse;
 
 
 class AuthenticateController extends Controller{

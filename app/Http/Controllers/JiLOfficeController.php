@@ -8,7 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\JiOffice;
 
-use App\Helpers\Response;
+use App\Helpers\JResponse;
 
 class JiLOfficeController extends Controller{
     /**
@@ -30,12 +30,12 @@ class JiLOfficeController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function show($id){
-        if(is_null($id) || !is_numeric($id)) return Response::set(false, 'Error en la petición');
+        if(is_null($id) || !is_numeric($id)) return response()->json(JResponse::set(false, 'Error en la petición'));
         $office = JiOffice::find($id);
         if($office == null)
-            return Response::set(false, 'Officina no encontrada');
+            return response()->json(JResponse::set(false, 'Officina no encontrada'));
         else
-            return Response::set(true, '', $office);
+            return response()->json(JResponse::set(true, '', $office));
     }
 
     /**
@@ -46,7 +46,8 @@ class JiLOfficeController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id){
-        if(is_null($id) || !is_numeric($id)) return Response::set(false, 'Error en la petición');
+        if(is_null($id) || !is_numeric($id)) 
+            return response()->json(JResponse::set(false, 'Error en la petición'));
         $office = JiOffice::find($id);
 
         foreach ($request->all() as $key => $value)
@@ -54,7 +55,7 @@ class JiLOfficeController extends Controller{
                 $office->{$key} = $value;
 
         $office->save();
-        return Response::set(true, 'Se han actualizado correctamente los datos de la oficina', $office);
+        return response()->json(JResponse::set(true, 'Se han actualizado correctamente los datos de la oficina', $office));
     }
 
     /**
@@ -64,7 +65,8 @@ class JiLOfficeController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function destroy($id){
-        if(is_null($id) || !is_numeric($id)) return Response::set(false, 'Error en la petición');
+        if(is_null($id) || !is_numeric($id)) 
+            return response()->json(JResponse::set(false, 'Error en la petición'));
         return 'hi';
     }
 }

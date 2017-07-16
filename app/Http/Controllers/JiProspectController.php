@@ -8,7 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\JiProspect;
 
-use App\Helpers\Response;
+use App\Helpers\JResponse;
 
 class JiProspectController extends Controller{
     /**
@@ -30,12 +30,13 @@ class JiProspectController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function show($id){
-        if(is_null($id) || !is_numeric($id)) return Response::set(false, 'Error en la petición');
+        if(is_null($id) || !is_numeric($id)) 
+            return response()->json(JResponse::set(false, 'Error en la petición'));
         $prospect = JiProspect::find($id);
         if($prospect == null)
-            return Response::set(false, 'Prospecto no encontrado');
+            return response()->json(JResponse::set(false, 'Prospecto no encontrado'));
         else
-            return Response::set(true, '', $prospect);
+            return response()->json(JResponse::set(true, '', $prospect));
     }
 
     /**
@@ -46,7 +47,8 @@ class JiProspectController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id){
-        if(is_null($id) || !is_numeric($id)) return Response::set(false, 'Error en la petición');
+        if(is_null($id) || !is_numeric($id)) 
+            return response()->json(JResponse::set(false, 'Error en la petición'));
         $prospect = JiProspect::find($id);
 
         foreach ($request->all() as $key => $value)
@@ -54,7 +56,7 @@ class JiProspectController extends Controller{
                 $prospect->{$key} = $value;
 
         $prospect->save();
-        return Response::set(true, 'Se han actualizado correctamente los datos del prospecto', $prospect);
+        return response()->json(JResponse::set(true, 'Se han actualizado correctamente los datos del prospecto', $prospect));
     }
 
     /**
@@ -64,7 +66,8 @@ class JiProspectController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function destroy($id){
-        if(is_null($id) || !is_numeric($id)) return Response::set(false, 'Error en la petición');
+        if(is_null($id) || !is_numeric($id)) 
+            return response()->json(JResponse::set(false, 'Error en la petición'));
         return 'hi';
     }
 }
