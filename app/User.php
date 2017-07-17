@@ -40,7 +40,9 @@ class User extends Model implements AuthenticatableContract,
     protected $appends = ['ji_user'];
 
     public function getJiUserAttribute(){
-        return $this->attributes['ji_user'] = $this->jiUser ?? null;
+        if($this->jiUser()->exists())
+            return $this->attributes['ji_user'] = $this->jiUser();
+        else return $this->attributes['ji_user'] = null;
     }
 
     public function jiUser(){

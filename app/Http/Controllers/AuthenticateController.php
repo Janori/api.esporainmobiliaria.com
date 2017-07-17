@@ -11,6 +11,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\User;
+use App\Models\JiUser;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use App\Helpers\JResponse;
@@ -31,12 +32,22 @@ class AuthenticateController extends Controller{
     }
 
     public function register(Request $request){
-        $user = User::create([
-          'name' => $request->get('name'),
-          'email' => $request->get('email'),
-          'password' => bcrypt($request->get('password'))
-        ]);
-        return response()->json(JResponse::set(true,'User created successfully',$user));
+        $user = User::oJson($request);
+        $jiUser = new JiUser();
+        $user->password = bcrypt($user->password);
+
+        try {
+            \DB::connection()->getPdo()->beginTransaction();
+
+            $user->save();
+            $user->jiUser()->save($jiUser);
+
+            \DB::connection()->getPdo()->commit();
+        } catch (\PDOException $e) {
+            \DB::connection()->getPdo()->rollBack();
+            return response()->json(JResponse::set(true,'El usuario no se pudo crear.',$e->getMessage()));
+        }
+        return response()->json(JResponse::set(true,'Usuario creado correctamente.', $user));
     }
     
     public function isLogged(Request $request){
