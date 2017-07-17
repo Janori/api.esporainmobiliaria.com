@@ -28,7 +28,7 @@ class User extends Model implements AuthenticatableContract,
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password', 'first_surname', 
+    protected $fillable = ['name', 'email', 'password', 'first_surname',
                            'last_surname', 'gender', 'mariage_status',
                            'address', 'kind'];
 
@@ -43,7 +43,7 @@ class User extends Model implements AuthenticatableContract,
 
     public function setPasswordAttribute($value) {
         if(!empty($value))
-            $this->attributes['password'] = bcrypt($value);
+            $this->attributes['password'] = \bcrypt($value);
     }
 
     public function getDates(){
@@ -54,29 +54,3 @@ class User extends Model implements AuthenticatableContract,
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

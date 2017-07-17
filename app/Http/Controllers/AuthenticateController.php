@@ -21,6 +21,7 @@ class AuthenticateController extends Controller{
 
     public function authenticate(Request $request){
         $credentials = $request->only('email', 'password');
+        return bcrypt('secret');
         try{
             if(!$token = JWTAuth::attempt($credentials)){
                 return response()->json(JResponse::set(false, 'invalid credentials')); //,401
@@ -40,7 +41,7 @@ class AuthenticateController extends Controller{
         }
         return response()->json(JResponse::set(true,'Usuario creado correctamente.', $user->toArray()));
     }
-    
+
     public function isLogged(Request $request){
         $auth = $request->header('Authorization');
         if(is_null($auth) || $auth == "") return response()->json(JResponse::set(true,'bool',false));
@@ -63,10 +64,3 @@ class AuthenticateController extends Controller{
     }
 
 }
-
-
-
-
-
-
-
