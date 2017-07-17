@@ -27,6 +27,6 @@ class JiOfficesTable extends Migration
      * @return void
      */
     public function down(){
-        Schema::drop('ji_offices');
+        Schema::drop('offices');
     }
 }

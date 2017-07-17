@@ -15,7 +15,7 @@ class JiDocumentsTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('file_path', 1024);
-            $table->unsignedInteger('customer_id');
+            $table->integer('customer_id')->unsigned();
             $table->string('kind', 100);
             $table->string('name', 255);
 
@@ -32,6 +32,6 @@ class JiDocumentsTable extends Migration
      * @return void
      */
     public function down(){
-        Schema::drop('ji_documents');
+        Schema::drop('documents');
     }
 }

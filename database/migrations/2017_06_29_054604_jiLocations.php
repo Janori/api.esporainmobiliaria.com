@@ -25,6 +25,6 @@ class JiLocations extends Migration
      * @return void
      */
     public function down(){
-        Schema::drop('ji_locations');
+        Schema::drop('locations');
     }
 }

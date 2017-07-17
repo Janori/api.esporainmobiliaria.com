@@ -14,9 +14,9 @@ class JiProspectTable extends Migration
         Schema::create('prospects', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->unsignedInteger('customer_id');
-            $table->unsignedInteger('building_id');
-            $table->unsignedInteger('user_id');
+            $table->integer('customer_id')->unsigned();
+            $table->integer('building_id')->unsigned();
+            $table->integer('user_id')->unsigned();
 
             $table->string('extra_data');
             $table->timestamps();
@@ -33,6 +33,6 @@ class JiProspectTable extends Migration
      * @return void
      */
     public function down(){
-        Schema::drop('ji_prospects');
+        Schema::drop('prospects');
     }
 }

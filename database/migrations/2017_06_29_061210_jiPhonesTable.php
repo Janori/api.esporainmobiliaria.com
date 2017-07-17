@@ -18,8 +18,8 @@ class JiPhonesTable extends Migration
             $table->char('kind', 1)->default('x');
             $table->boolean('active')->default(true);
             $table->string('number', 20);
-            $table->unsignedInteger('user_id');
-            $table->unsignedInteger('customer_id');
+            $table->integer('user_id')->unsigned();
+            $table->integer('customer_id')->unsigned();
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
@@ -32,6 +32,6 @@ class JiPhonesTable extends Migration
      * @return void
      */
     public function down(){
-        Schema::drop('ji_phones');
+        Schema::drop('phones');
     }
 }

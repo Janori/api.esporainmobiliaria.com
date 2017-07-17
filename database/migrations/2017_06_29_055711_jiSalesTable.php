@@ -15,11 +15,11 @@ class JiSalesTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('name', 80);
-            $table->unsignedInteger('building_id');
-            $table->unsignedInteger('user_id');
+            $table->integer('building_id')->unsigned();
+            $table->integer('user_id')->unsigned();
             $table->dateTime('sale_date');
             $table->decimal('amount', 12, 2);
-            $table->unsignedInteger('customer_id');
+            $table->integer('customer_id')->unsigned();
 
             $table->string('extra_data');
             $table->timestamps();
@@ -36,6 +36,6 @@ class JiSalesTable extends Migration
      * @return void
      */
     public function down(){
-        Schema::drop('ji_sales');
+        Schema::drop('sales');
     }
 }

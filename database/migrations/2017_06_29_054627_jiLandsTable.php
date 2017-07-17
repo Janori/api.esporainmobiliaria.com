@@ -15,7 +15,7 @@ class JiLandsTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->boolean('for_sale');
-            $table->unsignedInteger('location_id');
+            $table->integer('location_id')->unsigned();
             $table->decimal('price', 12, 2);
             $table->float('surface');
             $table->decimal('predial_cost', 12,2);
@@ -30,6 +30,6 @@ class JiLandsTable extends Migration
      * @return void
      */
     public function down(){
-        Schema::drop('ji_lands');
+        Schema::drop('lands');
     }
 }

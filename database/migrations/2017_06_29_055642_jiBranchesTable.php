@@ -15,8 +15,8 @@ class JiBranchesTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('name', 80);
-            $table->unsignedInteger('location_id');
-            $table->unsignedInteger('user_id');
+            $table->integer('location_id')->unsigned();
+            $table->integer('user_id')->unsigned();
             $table->boolean('active');
 
             $table->string('extra_data');
@@ -33,6 +33,6 @@ class JiBranchesTable extends Migration
      * @return void
      */
     public function down(){
-        Schema::drop('ji_branches');
+        Schema::drop('branches');
     }
 }

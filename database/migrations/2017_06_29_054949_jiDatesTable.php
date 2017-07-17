@@ -14,9 +14,9 @@ class JiDatesTable extends Migration
         Schema::create('dates', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->unsignedInteger('prospect_id');
+            $table->integer('prospect_id')->unsigned();
             $table->dateTime('date_date');
-            $table->unsignedInteger('user_id');
+            $table->integer('user_id')->unsigned();
 
             $table->string('extra_data');
             $table->timestamps();
@@ -32,6 +32,6 @@ class JiDatesTable extends Migration
      * @return void
      */
     public function down(){
-        Schema::drop('ji_dates');
+        Schema::drop('dates');
     }
 }

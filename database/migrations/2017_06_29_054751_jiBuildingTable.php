@@ -14,10 +14,10 @@ class JiBuildingTable extends Migration
         Schema::create('buildings', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->unsignedInteger('land_id')->nullable();
-            $table->unsignedInteger('warehouse_id')->nullable();
-            $table->unsignedInteger('office_id')->nullable();
-            $table->unsignedInteger('house_id')->nullable();
+            $table->integer('land_id')->unsigned()->nullable();
+            $table->integer('warehouse_id')->unsigned()->nullable();
+            $table->integer('office_id')->unsigned()->nullable();
+            $table->integer('house_id')->unsigned()->nullable();
 
             $table->string('extra_data');
             $table->timestamps();
@@ -35,6 +35,6 @@ class JiBuildingTable extends Migration
      * @return void
      */
     public function down(){
-        Schema::drop('ji_buildings');
+        Schema::drop('buildings');
     }
 }
