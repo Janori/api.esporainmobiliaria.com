@@ -12,6 +12,7 @@ class JiProspectTable extends Migration
      */
     public function up(){
         Schema::create('prospects', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->increments('id');
             $table->unsignedInteger('customer_id');
             $table->unsignedInteger('building_id');

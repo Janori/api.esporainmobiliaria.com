@@ -12,6 +12,7 @@ class JiBranchesTable extends Migration
      */
     public function up(){
         Schema::create('branches', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('name', 80);
             $table->unsignedInteger('location_id');

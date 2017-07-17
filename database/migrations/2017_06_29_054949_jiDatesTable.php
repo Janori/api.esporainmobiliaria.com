@@ -12,6 +12,7 @@ class JiDatesTable extends Migration
      */
     public function up(){
         Schema::create('dates', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->increments('id');
             $table->unsignedInteger('prospect_id');
             $table->dateTime('date_date');

@@ -12,6 +12,7 @@ class JiOfficesTable extends Migration
      */
     public function up(){
         Schema::create('offices', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->increments('id');
             $table->float('baths');
             $table->integer('parkings');

@@ -12,6 +12,7 @@ class JiDocumentsTable extends Migration
      */
     public function up(){
         Schema::create('documents', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('file_path', 1024);
             $table->unsignedInteger('customer_id');

@@ -12,6 +12,7 @@ class JiSalesTable extends Migration
      */
     public function up(){
         Schema::create('sales', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('name', 80);
             $table->unsignedInteger('building_id');

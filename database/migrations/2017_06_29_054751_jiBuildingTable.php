@@ -12,6 +12,7 @@ class JiBuildingTable extends Migration
      */
     public function up(){
         Schema::create('buildings', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->increments('id');
             $table->unsignedInteger('land_id')->nullable();
             $table->unsignedInteger('warehouse_id')->nullable();

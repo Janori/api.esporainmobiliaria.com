@@ -13,6 +13,7 @@ class JiPhonesTable extends Migration
     public function up()
     {
         Schema::create('phones', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->increments('id');
             $table->char('kind', 1)->default('x');
             $table->boolean('active')->default(true);

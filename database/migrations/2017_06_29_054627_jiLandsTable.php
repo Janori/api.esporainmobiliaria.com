@@ -12,6 +12,7 @@ class JiLandsTable extends Migration
      */
     public function up(){
         Schema::create('lands', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->increments('id');
             $table->boolean('for_sale');
             $table->unsignedInteger('location_id');

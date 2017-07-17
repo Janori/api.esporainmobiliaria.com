@@ -12,6 +12,7 @@ class JiHousingTable extends Migration
      */
     public function up(){
         Schema::create('housings', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->increments('id');
             $table->integer('rooms');
             $table->char('kind', 2)->default('xx');

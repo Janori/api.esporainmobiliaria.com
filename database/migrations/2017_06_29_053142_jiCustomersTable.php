@@ -12,6 +12,7 @@ class JiCustomersTable extends Migration
      */
     public function up(){
         Schema::create('customers', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('fname', 30);
             $table->string('sname', 30)->nullable();

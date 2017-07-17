@@ -12,6 +12,7 @@ class JiWarehousesTable extends Migration
      */
     public function up(){
         Schema::create('warehouses', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->increments('id');
             $table->boolean('is_new');
             $table->float('build_surface');
