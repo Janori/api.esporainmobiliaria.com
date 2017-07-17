@@ -43,7 +43,7 @@ class User extends Model implements AuthenticatableContract,
 
     public function setPasswordAttribute($value) {
         if(!empty($value))
-            $this->attributes['password'] = \bcrypt($value);
+            $this->attributes['password'] = bcrypt($value);
     }
 
     public function getDates(){
