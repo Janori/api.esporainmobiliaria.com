@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class JiPhone extends Model
 {
-    protected $table = 'ji_phones';
+    protected $table = 'phones';
 
     public function user(){
     	return $this->belongsTo('App\Models\JiUser');

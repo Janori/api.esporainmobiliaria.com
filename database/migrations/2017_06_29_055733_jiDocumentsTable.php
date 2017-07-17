@@ -11,17 +11,17 @@ class JiDocumentsTable extends Migration
      * @return void
      */
     public function up(){
-        Schema::create('ji_documents', function (Blueprint $table) {
+        Schema::create('documents', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('filePath', 1024);
+            $table->string('file_path', 1024);
             $table->unsignedInteger('customer_id');
             $table->string('kind', 100);
             $table->string('name', 255);
 
-            $table->string('extraData');
+            $table->string('extra_data');
             $table->timestamps();
 
-            $table->foreign('customer_id')->references('id')->on('ji_customers')->onDelete('cascade');
+            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
         });
     }
 

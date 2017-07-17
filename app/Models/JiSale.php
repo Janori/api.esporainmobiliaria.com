@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class JiSale extends Model
 {
-    protected $table = 'JiSale';
+    protected $table = 'sale';
 
     function salesMan(){
     	return $this->belongsTo('App\Models\JiUser');

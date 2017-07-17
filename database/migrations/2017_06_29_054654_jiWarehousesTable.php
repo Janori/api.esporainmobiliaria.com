@@ -11,7 +11,7 @@ class JiWarehousesTable extends Migration
      * @return void
      */
     public function up(){
-        Schema::create('ji_warehouses', function (Blueprint $table) {
+        Schema::create('warehouses', function (Blueprint $table) {
             $table->increments('id');
             $table->boolean('is_new');
             $table->float('build_surface');

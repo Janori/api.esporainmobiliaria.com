@@ -11,7 +11,7 @@ class JiHousingTable extends Migration
      * @return void
      */
     public function up(){
-        Schema::create('ji_housings', function (Blueprint $table) {
+        Schema::create('housings', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('rooms');
             $table->char('kind', 2)->default('xx');

@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 
 use App\Http\Controllers\AuthenticateController;
 use App\Models\JiUser;
+use App\Helpers\JResponse;
 
 class JiUserController extends Controller
 {
@@ -28,33 +29,6 @@ class JiUserController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $user = AuthenticateController::getUserFromToken($request->token);
-        $jusr = new JiUser();
-        $jusr->fname = $request->get('fname');
-        $jusr->flname = $request->get('flname');
-        $jusr->user_id = $user->id;
-        $jusr->save();
-        return response()->json(['result' => $user]);
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -62,7 +36,8 @@ class JiUserController extends Controller
      */
     public function show($id)
     {
-        //
+        $users = JiUser::find($id);
+        return response()->json(JResponse::set(true, ""));
     }
 
     /**
@@ -71,8 +46,7 @@ class JiUserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
+    public function edit($id){
         //
     }
 
@@ -83,9 +57,16 @@ class JiUserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(Request $request, $id){
+        if(is_null($id) || !is_numeric($id)) 
+            return response()->json(JResponse::set(false, 'Error en la petición'));
+        $sale = User::find($id);
+
+        foreach ($request->all() as $key => $value)
+            if(!is_null($value))
+                $sale->{$key} = $value;
+
+        $sale->save();
     }
 
     /**

@@ -11,7 +11,7 @@ class JiCustomersTable extends Migration
      * @return void
      */
     public function up(){
-        Schema::create('ji_customers', function (Blueprint $table) {
+        Schema::create('customers', function (Blueprint $table) {
             $table->increments('id');
             $table->string('fname', 30);
             $table->string('sname', 30)->nullable();

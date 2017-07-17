@@ -28,27 +28,31 @@ class User extends Model implements AuthenticatableContract,
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password'];
+    protected $fillable = ['name', 'email', 'password', 'first_surname', 
+                           'last_surname', 'gender', 'mariage_status',
+                           'address', 'kind'];
 
     /**
      * The attributes excluded from the model's JSON form.
      *
      * @var array
      */
-    protected $hidden = ['password', 'remember_token', 'id', 'name', 'user_id', 'created_at', 'updated_at'];
+    protected $hidden = ['password', 'remember_token', 'id', 'name', 'user_id'];
 
-    protected $appends = ['ji_user'];
+    protected $dates = ['created_at', 'updated_at'];
 
-    public function getJiUserAttribute(){
-        if($this->jiUser()->exists())
-            return $this->attributes['ji_user'] = $this->jiUser();
-        else return $this->attributes['ji_user'] = null;
+    public function setPasswordAttribute($value) {
+        if(!empty($value))
+            $this->attributes['password'] = bcrypt($value);
     }
 
-    public function jiUser(){
-        //return $this->belongsTo('App\User');
-        return $this->hasOne('App\Models\JiUser');
-    }   
+    public function getDates(){
+        return array();
+    }
+
+
+
+
 }
 
 

@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class JiOffice extends Model
 {
-    protected $table = 'ji_offices';
+    protected $table = 'offices';
 }

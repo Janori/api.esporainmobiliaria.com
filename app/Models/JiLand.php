@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class JiLand extends Model
 {
-    protected $table = 'ji_lands';
+    protected $table = 'lands';
 
     public function land(){
     	return $this->belongsTo('App\Models\JiLand');

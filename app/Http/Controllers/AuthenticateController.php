@@ -21,6 +21,7 @@ class AuthenticateController extends Controller{
 
     public function authenticate(Request $request){
         $credentials = $request->only('email', 'password');
+        return $request->input();
         try{
             if(!$token = JWTAuth::attempt($credentials)){
                 return response()->json(JResponse::set(false, 'invalid credentials')); //,401
@@ -32,22 +33,13 @@ class AuthenticateController extends Controller{
     }
 
     public function register(Request $request){
-        $user = User::oJson($request);
-        $jiUser = new JiUser();
-        $user->password = bcrypt($user->password);
-
+        $user = new User($request->all());
         try {
-            \DB::connection()->getPdo()->beginTransaction();
-
             $user->save();
-            $user->jiUser()->save($jiUser);
-
-            \DB::connection()->getPdo()->commit();
         } catch (\PDOException $e) {
-            \DB::connection()->getPdo()->rollBack();
             return response()->json(JResponse::set(true,'El usuario no se pudo crear.',$e->getMessage()));
         }
-        return response()->json(JResponse::set(true,'Usuario creado correctamente.', $user));
+        return response()->json(JResponse::set(true,'Usuario creado correctamente.', $user->toArray()));
     }
     
     public function isLogged(Request $request){

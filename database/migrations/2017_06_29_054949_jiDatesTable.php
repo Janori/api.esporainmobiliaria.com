@@ -11,17 +11,17 @@ class JiDatesTable extends Migration
      * @return void
      */
     public function up(){
-        Schema::create('ji_dates', function (Blueprint $table) {
+        Schema::create('dates', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('prospect_id');
             $table->dateTime('date_date');
             $table->unsignedInteger('user_id');
 
-            $table->string('extraData');
+            $table->string('extra_data');
             $table->timestamps();
 
-            $table->foreign('prospect_id')->references('id')->on('ji_prospects')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('ji_users')->onDelete('cascade');
+            $table->foreign('prospect_id')->references('id')->on('prospects')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

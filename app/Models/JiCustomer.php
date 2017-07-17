@@ -26,7 +26,7 @@ class JiCustomer extends Model{
 		'Divorciado' => 'd',
 	];
     
-    protected $table = 'ji_customers';
+    protected $table = 'customers';
 
 
     protected $fillable = ['fname', 'flname', 'user_id'];

@@ -6,6 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class JiHousing extends Model
 {
-    protected $table = 'ji_housings';
+    protected $table = 'housings';
 
 }

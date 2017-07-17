@@ -11,7 +11,7 @@ class JiOfficesTable extends Migration
      * @return void
      */
     public function up(){
-        Schema::create('ji_offices', function (Blueprint $table) {
+        Schema::create('offices', function (Blueprint $table) {
             $table->increments('id');
             $table->float('baths');
             $table->integer('parkings');

@@ -12,7 +12,7 @@ class JiPhonesTable extends Migration
      */
     public function up()
     {
-        Schema::create('ji_phones', function (Blueprint $table) {
+        Schema::create('phones', function (Blueprint $table) {
             $table->increments('id');
             $table->char('kind', 1)->default('x');
             $table->boolean('active')->default(true);
@@ -21,7 +21,7 @@ class JiPhonesTable extends Migration
             $table->unsignedInteger('customer_id');
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('customer_id')->references('id')->on('ji_customers')->onDelete('cascade');
+            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
         });
     }
 

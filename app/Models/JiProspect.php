@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class JiProspect extends Model
 {
-    protected $table = 'ji_prospects';
+    protected $table = 'prospects';
 
     public function building(){
     	return $this->belongsTo('App\Models\JiBuilding');

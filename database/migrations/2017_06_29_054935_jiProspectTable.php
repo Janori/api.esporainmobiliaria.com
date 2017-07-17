@@ -11,18 +11,18 @@ class JiProspectTable extends Migration
      * @return void
      */
     public function up(){
-        Schema::create('ji_prospects', function (Blueprint $table) {
+        Schema::create('prospects', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('customer_id');
             $table->unsignedInteger('building_id');
             $table->unsignedInteger('user_id');
 
-            $table->string('extraData');
+            $table->string('extra_data');
             $table->timestamps();
 
-            $table->foreign('customer_id')->references('id')->on('ji_customers')->onDelete('cascade');
-            $table->foreign('building_id')->references('id')->on('ji_buildings')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('ji_users')->onDelete('cascade');
+            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
+            $table->foreign('building_id')->references('id')->on('buildings')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

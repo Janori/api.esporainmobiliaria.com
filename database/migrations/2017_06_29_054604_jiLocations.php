@@ -11,7 +11,7 @@ class JiLocations extends Migration
      * @return void
      */
     public function up(){
-        Schema::create('ji_locations', function (Blueprint $table) {
+        Schema::create('locations', function (Blueprint $table) {
             $table->increments('id');
             $table->decimal('latitude', 16, 13);
             $table->decimal('longitude', 16, 13);

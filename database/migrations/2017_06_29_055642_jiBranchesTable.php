@@ -11,18 +11,18 @@ class JiBranchesTable extends Migration
      * @return void
      */
     public function up(){
-        Schema::create('ji_branches', function (Blueprint $table) {
+        Schema::create('branches', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 80);
             $table->unsignedInteger('location_id');
             $table->unsignedInteger('user_id');
             $table->boolean('active');
 
-            $table->string('extraData');
+            $table->string('extra_data');
             $table->timestamps();
 
-            $table->foreign('location_id')->references('id')->on('ji_locations')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('ji_users')->onDelete('cascade');
+            $table->foreign('location_id')->references('id')->on('locations')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

@@ -30,12 +30,12 @@ class JiHousingController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function show($id){
-        if(is_null($id) || !is_numeric($id)) return Response::set(false, 'Error en la petición');
+        if(is_null($id) || !is_numeric($id)) return JResponse::set(false, 'Error en la petición');
         $housing = Jihousing::find($id);
         if($housing == null)
-            return response()->json(Response::set(false, 'Casa no encontrada'));
+            return response()->json(JResponse::set(false, 'Casa no encontrada'));
         else
-            return response()->json(Response::set(true, '', $housing));
+            return response()->json(JResponse::set(true, '', $housing));
     }
 
     /**
@@ -46,7 +46,7 @@ class JiHousingController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id){
-        if(is_null($id) || !is_numeric($id)) return Response::set(false, 'Error en la petición');
+        if(is_null($id) || !is_numeric($id)) return JResponse::set(false, 'Error en la petición');
         $housing = Jihousing::find($id);
 
         foreach ($request->all() as $key => $value)
@@ -54,7 +54,7 @@ class JiHousingController extends Controller{
                 $housing->{$key} = $value;
 
         $housing->save();
-        return response()->json(Response::set(true, 'Se han actualizado correctamente los datos de la casa', $housing));
+        return response()->json(JResponse::set(true, 'Se han actualizado correctamente los datos de la casa', $housing));
     }
 
     /**
@@ -65,7 +65,7 @@ class JiHousingController extends Controller{
      */
     public function destroy($id){
         if(is_null($id) || !is_numeric($id)) 
-            return response()->json(Response::set(false, 'Error en la petición'));
+            return response()->json(JResponse::set(false, 'Error en la petición'));
         return 'hi';
     }
 }

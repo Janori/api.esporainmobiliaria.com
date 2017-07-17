@@ -11,15 +11,15 @@ class JiLandsTable extends Migration
      * @return void
      */
     public function up(){
-        Schema::create('ji_lands', function (Blueprint $table) {
+        Schema::create('lands', function (Blueprint $table) {
             $table->increments('id');
-            $table->boolean('forSale');
+            $table->boolean('for_sale');
             $table->unsignedInteger('location_id');
             $table->decimal('price', 12, 2);
             $table->float('surface');
-            $table->decimal('predialCost', 12,2);
+            $table->decimal('predial_cost', 12,2);
             
-            $table->foreign('location_id')->references('id')->on('ji_locations')->onDelete('cascade');
+            $table->foreign('location_id')->references('id')->on('locations')->onDelete('cascade');
         });
     }
 

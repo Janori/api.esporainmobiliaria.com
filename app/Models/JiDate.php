@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class JiDate extends Model
 {
-    protected $table = 'ji_dates';
+    protected $table = 'dates';
 
     public function prospect(){
     	return $this->belongsTo('App\Models\JiProspect');
