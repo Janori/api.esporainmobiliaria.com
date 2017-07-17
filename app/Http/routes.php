@@ -18,6 +18,7 @@ Route::get('/', function () {
 
 Route::post('api/authenticate', 'AuthenticateController@authenticate');
 Route::group(['middleware' => ['jwt.auth', 'cors'], 'prefix'=>'api'], function(){
+	Route::get('user/data', 'AuthenticateController@getUserData');
 	Route::resource('user', 'JiUserController', ['except' => ['index', 'create']]);
 	Route::get('customer/options/{option}', 'JiCustomerController@options');
 	Route::resource('customer', 'JiCustomerController', ['except' => ['index', 'create']]);

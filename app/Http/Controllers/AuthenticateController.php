@@ -47,6 +47,14 @@ class AuthenticateController extends Controller{
         return response()->json(JResponse::set(true,'bool',false));
     }
 
+    public function getUserData(Request $request){
+        $auth = $request->header('Authorization');
+        if(is_null($auth) || $auth == "") return response()->json(JResponse::set(false,'Error en la petición.'));
+        $user = JWTAuth::toUser($auth);
+        if(!$user) return response()->json(JResponse::set(false,'No se obtuvieron datos de ningún usuario.'));
+        return response()->json(JResponse::set(true,'bool',$user));
+    }
+
     public static function getUserFromToken($token){
         $user = JWTAuth::toUser($token);
         return $user;

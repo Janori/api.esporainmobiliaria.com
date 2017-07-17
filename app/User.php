@@ -37,9 +37,16 @@ class User extends Model implements AuthenticatableContract,
      */
     protected $hidden = ['password', 'remember_token', 'id', 'name', 'user_id', 'created_at', 'updated_at'];
 
-    /*public function ji_user(){
-        $this->belongsTo('App\Models\JiUser');
-    }*/
+    protected $appends = ['ji_user'];
+
+    public function getJiUserAttribute(){
+        return $this->attributes['ji_user'] = $this->jiUser ?? null;
+    }
+
+    public function jiUser(){
+        //return $this->belongsTo('App\User');
+        return $this->hasOne('App\Models\JiUser');
+    }   
 }
 
 
