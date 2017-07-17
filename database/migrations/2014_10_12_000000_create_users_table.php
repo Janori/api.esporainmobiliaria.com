@@ -13,6 +13,7 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('name');
             $table->string('email')->unique();
@@ -25,7 +26,7 @@ class CreateUsersTable extends Migration
             $table->char('mariage_status', 1)->default('x');
             $table->string('address', 80)->nullable();
             $table->char('kind', 1)->default('x');
-            
+
             $table->timestamps();
         });
     }
