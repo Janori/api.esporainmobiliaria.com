@@ -19,9 +19,14 @@ use App\Helpers\JResponse;
 
 class AuthenticateController extends Controller{
 
-    public function authenticate(Request $request){
-        $credentials = $request->only('email', 'password');
+    private $expirationTime = 60;
 
+    public function authenticate(Request $request){
+        if($request->has('email')){
+            $credentials = $request->only('email', 'password');   
+        }else{
+            $credentials = $request->only('username', 'password');   
+        }
         try{
             if(!$token = JWTAuth::attempt($credentials)){
                 return response()->json(JResponse::set(false, 'invalid credentials')); //,401
@@ -29,7 +34,11 @@ class AuthenticateController extends Controller{
         }catch(JWTException $e){
             return response()->json(JResponse::set(false, 'could not create token')); //,500
         }
-        return response()->json(JResponse::set(true,'Token successfully created', compact('token')));
+        return response()->json(
+            JResponse::set(true,'Token successfully created', ['token' => $token, 
+                                                               'ttl' => $this->expirationTime, 
+                                                               'user' => JWTAuth::toUser($token)
+                                                               ]));
     }
 
     public function register(Request $request){
