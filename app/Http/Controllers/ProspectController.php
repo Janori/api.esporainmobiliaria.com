@@ -6,11 +6,11 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Models\JiOffice;
+use App\Models\Prospect;
 
 use App\Helpers\JResponse;
 
-class JiLOfficeController extends Controller{
+class JiProspectController extends Controller{
     /**
      * Store a newly created resource in storage.
      *
@@ -18,9 +18,9 @@ class JiLOfficeController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request){
-        //$office = JiOffice::create($request->all());
-        $office = JiOffice::oJson($request);
-        return '' . $office;
+        //$prospect = JiProspect::create($request->all());
+        $prospect = Prospect::oJson($request);
+        return '' . $prospect;
     }
 
     /**
@@ -30,12 +30,13 @@ class JiLOfficeController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function show($id){
-        if(is_null($id) || !is_numeric($id)) return response()->json(JResponse::set(false, 'Error en la petición'));
-        $office = JiOffice::find($id);
-        if($office == null)
-            return response()->json(JResponse::set(false, 'Officina no encontrada'));
+        if(is_null($id) || !is_numeric($id)) 
+            return response()->json(JResponse::set(false, 'Error en la petición'));
+        $prospect = Prospect::find($id);
+        if($prospect == null)
+            return response()->json(JResponse::set(false, 'Prospecto no encontrado'));
         else
-            return response()->json(JResponse::set(true, '', $office));
+            return response()->json(JResponse::set(true, '', $prospect));
     }
 
     /**
@@ -48,14 +49,14 @@ class JiLOfficeController extends Controller{
     public function update(Request $request, $id){
         if(is_null($id) || !is_numeric($id)) 
             return response()->json(JResponse::set(false, 'Error en la petición'));
-        $office = JiOffice::find($id);
+        $prospect = Prospect::find($id);
 
         foreach ($request->all() as $key => $value)
             if(!is_null($value))
-                $office->{$key} = $value;
+                $prospect->{$key} = $value;
 
-        $office->save();
-        return response()->json(JResponse::set(true, 'Se han actualizado correctamente los datos de la oficina', $office));
+        $prospect->save();
+        return response()->json(JResponse::set(true, 'Se han actualizado correctamente los datos del prospecto', $prospect));
     }
 
     /**

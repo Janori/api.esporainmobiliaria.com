@@ -6,11 +6,12 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Models\JiSale;
+use App\Models\Location;
 
 use App\Helpers\JResponse;
 
-class JiSaleController extends Controller{
+class JiLocationController extends Controller{
+
     /**
      * Store a newly created resource in storage.
      *
@@ -18,9 +19,9 @@ class JiSaleController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request){
-        //$sale = JiSale::create($request->all());
-        $sale = JiSale::oJson($request);
-        return '' . $sale;
+        //$location = JiLocation::create($request->all());
+        $location = Location::oJson($request);
+        return '' . $location;
     }
 
     /**
@@ -31,12 +32,12 @@ class JiSaleController extends Controller{
      */
     public function show($id){
         if(is_null($id) || !is_numeric($id)) 
-            return response()->json(JResponse::set(false, 'Error en la petición'));
-        $sale = JiSale::find($id);
-        if($sale == null)
-            return response()->json(JResponse::set(false, 'Venta no encontrada'));
+            return response()->json(Response::set(false, 'Error en la petición'));
+        $location = Location::find($id);
+        if($location == null)
+            return response()->json(Response::set(false, 'Location not found'));
         else
-            return response()->json(JResponse::set(true, '', $sale));
+            return response()->json(Response::set(true, '', $location));
     }
 
     /**
@@ -48,15 +49,15 @@ class JiSaleController extends Controller{
      */
     public function update(Request $request, $id){
         if(is_null($id) || !is_numeric($id)) 
-            return response()->json(JResponse::set(false, 'Error en la petición'));
-        $sale = JiSale::find($id);
+            return response()->json(Response::set(false, 'Error en la petición'));
+        $location = Location::find($id);
 
         foreach ($request->all() as $key => $value)
             if(!is_null($value))
-                $sale->{$key} = $value;
+                $location->{$key} = $value;
 
-        $sale->save();
-        return response()->json(JResponse::set(true, 'Se han actualizado correctamente los datos de la venta', $sale));
+        $location->save();
+        return response()->json(Response::set(true, 'Se ha actualizado correctamente la ubicacion', $location));
     }
 
     /**
@@ -67,9 +68,7 @@ class JiSaleController extends Controller{
      */
     public function destroy($id){
         if(is_null($id) || !is_numeric($id)) 
-            return response()->json(JResponse::set(false, 'Error en la petición'));
+            return response()->json(Response::set(false, 'Error en la petición'));
         return 'hi';
     }
 }
-
-

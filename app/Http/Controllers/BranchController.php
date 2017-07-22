@@ -6,12 +6,12 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Models\JiBuilding;
+use App\Models\Branch;
 
 use App\Helpers\JResponse;
 
-class JiBuildingController extends Controller
-{
+class JiBranchController extends Controller{
+
     /**
      * Store a newly created resource in storage.
      *
@@ -19,9 +19,9 @@ class JiBuildingController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request){
-        //$building = JiBuilding::create($request->all());
-        $building = JiBuilding::oJson($request);
-        return '' . $building;
+        //$branch = JiBranch::create($request->all());
+        $branch = Branch::oJson($request);
+        return '' . $branch;
     }
 
     /**
@@ -33,11 +33,11 @@ class JiBuildingController extends Controller
     public function show($id){
         if(is_null($id) || !is_numeric($id)) 
             return response()->json(JResponse::set(false, 'Error en la petición'));
-        $building = JiBuilding::find($id);
-        if($building == null)
-            return response()->json(JResponse::set(false, 'Edificio no encontrado'));
+        $branch = Branch::find($id);
+        if($branch == null)
+            return response()->json(JResponse::set(false, 'Location not found'));
         else
-            return response()->json(JResponse::set(true, '', $building));
+            return response()->json(JResponse::set(true, '', $branch));
     }
 
     /**
@@ -50,14 +50,14 @@ class JiBuildingController extends Controller
     public function update(Request $request, $id){
         if(is_null($id) || !is_numeric($id)) 
             return response()->json(JResponse::set(false, 'Error en la petición'));
-        $building = JiBuilding::find($id);
+        $branch = Branch::find($id);
 
         foreach ($request->all() as $key => $value)
             if(!is_null($value))
-                $building->{$key} = $value;
+                $branch->{$key} = $value;
 
-        $building->save();
-        return response()->json(JResponse::set(true, 'Se ha actualizado correctamente el edificio', $building));
+        $branch->save();
+        return response()->json(JResponse::set(true, 'Se ha actualizado correctamente la ubicacion', $branch));
     }
 
     /**
@@ -67,8 +67,8 @@ class JiBuildingController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id){
-        if(is_null($id) || !is_numeric($id))
-            return response()->json(return JResponse::set(false, 'Error en la petición'));
+        if(is_null($id) || !is_numeric($id)) 
+            return response()->json(JResponse::set(false, 'Error en la petición'));
         return 'hi';
     }
 }

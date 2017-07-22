@@ -16,11 +16,11 @@ class JiCustomerController extends Controller
     public function options($option){
         switch ($option) {
             case 'gender':
-                return response()->json(JResponse::set(true, '', JiCustomer::$gender_options));
+                return response()->json(JResponse::set(true, '', Customer::$gender_options));
             case 'kind':
-                return response()->json(JResponse::set(true, '', JiCustomer::$kind_options));
+                return response()->json(JResponse::set(true, '', Customer::$kind_options));
             case 'mstatus':
-                return response()->json(JResponse::set(true, '', JiCustomer::$mstatus_options));
+                return response()->json(JResponse::set(true, '', Customer::$mstatus_options));
             default:
                 return response()->json(JResponse::set(false, 'Invalid option: ' . $option));
         }
@@ -35,7 +35,7 @@ class JiCustomerController extends Controller
     public function store(Request $request)
     {
         //$customer = JiCustomer::create($request->all());
-        $customer = JiCustomer::oJson($request);
+        $customer = Customer::oJson($request);
         return '' . $customer;
     }
 
@@ -48,7 +48,7 @@ class JiCustomerController extends Controller
     public function show($id){
         if(is_null($id) || !is_numeric($id)) 
             return response()->json(JResponse::set(false, 'Error en la petición'));
-        $customer = JiCustomer::find($id);
+        $customer = Customer::find($id);
         if($customer == null)
             return response()->json(JResponse::set(false, 'User not found'));
         else
@@ -65,7 +65,7 @@ class JiCustomerController extends Controller
     public function update(Request $request, $id){
         if(is_null($id) || !is_numeric($id)) 
             return response()->json(JResponse::set(false, 'Error en la petición'));
-        $customer = JiCustomer::find($id);
+        $customer = Customer::find($id);
 
         foreach ($request->all() as $key => $value)
             if(!is_null($value))

@@ -6,11 +6,11 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Models\JiProspect;
+use App\Models\Land;
 
 use App\Helpers\JResponse;
 
-class JiProspectController extends Controller{
+class JiLandController extends Controller{
     /**
      * Store a newly created resource in storage.
      *
@@ -18,9 +18,9 @@ class JiProspectController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request){
-        //$prospect = JiProspect::create($request->all());
-        $prospect = JiProspect::oJson($request);
-        return '' . $prospect;
+        //$land = JiLand::create($request->all());
+        $land = Land::oJson($request);
+        return '' . $land;
     }
 
     /**
@@ -30,13 +30,12 @@ class JiProspectController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function show($id){
-        if(is_null($id) || !is_numeric($id)) 
-            return response()->json(JResponse::set(false, 'Error en la petición'));
-        $prospect = JiProspect::find($id);
-        if($prospect == null)
-            return response()->json(JResponse::set(false, 'Prospecto no encontrado'));
+        if(is_null($id) || !is_numeric($id)) return response()->json(JResponse::set(false, 'Error en la petición'));
+        $land = Land::find($id);
+        if($land == null)
+            return response()->json(JResponse::set(false, 'Terreno no encontrado'));
         else
-            return response()->json(JResponse::set(true, '', $prospect));
+            return response()->json(JResponse::set(true, '', $land));
     }
 
     /**
@@ -47,16 +46,15 @@ class JiProspectController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id){
-        if(is_null($id) || !is_numeric($id)) 
-            return response()->json(JResponse::set(false, 'Error en la petición'));
-        $prospect = JiProspect::find($id);
+        if(is_null($id) || !is_numeric($id)) return response()->json(JResponse::set(false, 'Error en la petición'));
+        $land = Land::find($id);
 
         foreach ($request->all() as $key => $value)
             if(!is_null($value))
-                $prospect->{$key} = $value;
+                $land->{$key} = $value;
 
-        $prospect->save();
-        return response()->json(JResponse::set(true, 'Se han actualizado correctamente los datos del prospecto', $prospect));
+        $land->save();
+        return response()->json(JResponse::set(true, 'Se han actualizado correctamente los datos del terreno', $land));
     }
 
     /**

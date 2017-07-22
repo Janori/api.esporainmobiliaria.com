@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class JiBuilding extends Model
+class Building extends Model
 {
     
     protected $table = 'building';

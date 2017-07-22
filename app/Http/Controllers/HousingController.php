@@ -6,11 +6,11 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Models\JiPhone;
+use App\Models\Housing;
 
 use App\Helpers\JResponse;
 
-class JiPhoneController extends Controller{
+class JiHousingController extends Controller{ 
     /**
      * Store a newly created resource in storage.
      *
@@ -18,9 +18,9 @@ class JiPhoneController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request){
-        //$phone = JiPhone::create($request->all());
-        $phone = JiPhone::oJson($request);
-        return '' . $phone;
+        //$housing = Jihousing::create($request->all());
+        $housing = Housing::oJson($request);
+        return '' . $housing;
     }
 
     /**
@@ -30,13 +30,12 @@ class JiPhoneController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function show($id){
-        if(is_null($id) || !is_numeric($id)) 
-            return response()->json(JResponse::set(false, 'Error en la petición'));
-        $phone = JiPhone::find($id);
-        if($phone == null)
-            return response()->json(JResponse::set(false, 'Telefono no encontrado'));
+        if(is_null($id) || !is_numeric($id)) return JResponse::set(false, 'Error en la petición');
+        $housing = Housing::find($id);
+        if($housing == null)
+            return response()->json(JResponse::set(false, 'Casa no encontrada'));
         else
-            return response()->json(JResponse::set(true, '', $phone));
+            return response()->json(JResponse::set(true, '', $housing));
     }
 
     /**
@@ -47,16 +46,15 @@ class JiPhoneController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id){
-        if(is_null($id) || !is_numeric($id)) 
-            return response()->json(JResponse::set(false, 'Error en la petición'));
-        $phone = JiPhone::find($id);
+        if(is_null($id) || !is_numeric($id)) return JResponse::set(false, 'Error en la petición');
+        $housing = Housing::find($id);
 
         foreach ($request->all() as $key => $value)
             if(!is_null($value))
-                $phone->{$key} = $value;
+                $housing->{$key} = $value;
 
-        $phone->save();
-        return response()->json(JResponse::set(true, 'Se han actualizado correctamente los datos del teléfono', $phone));
+        $housing->save();
+        return response()->json(JResponse::set(true, 'Se han actualizado correctamente los datos de la casa', $housing));
     }
 
     /**

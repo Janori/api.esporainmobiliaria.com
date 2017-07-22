@@ -6,11 +6,12 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Models\JiDocument;
+use App\Models\JiBuilding;
 
 use App\Helpers\JResponse;
 
-class JiDocumentController extends Controller{
+class JiBuildingController extends Controller
+{
     /**
      * Store a newly created resource in storage.
      *
@@ -18,9 +19,9 @@ class JiDocumentController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request){
-        //$document = JiDocument::create($request->all());
-        $document = JiDocument::oJson($request);
-        return '' . $document;
+        //$building = JiBuilding::create($request->all());
+        $building = Building::oJson($request);
+        return '' . $building;
     }
 
     /**
@@ -32,11 +33,11 @@ class JiDocumentController extends Controller{
     public function show($id){
         if(is_null($id) || !is_numeric($id)) 
             return response()->json(JResponse::set(false, 'Error en la petición'));
-        $document = JiDocument::find($id);
-        if($document == null)
+        $building = Building::find($id);
+        if($building == null)
             return response()->json(JResponse::set(false, 'Edificio no encontrado'));
         else
-            return response()->json(JResponse::set(true, '', $document));
+            return response()->json(JResponse::set(true, '', $building));
     }
 
     /**
@@ -49,14 +50,14 @@ class JiDocumentController extends Controller{
     public function update(Request $request, $id){
         if(is_null($id) || !is_numeric($id)) 
             return response()->json(JResponse::set(false, 'Error en la petición'));
-        $document = JiDocument::find($id);
+        $building = Building::find($id);
 
         foreach ($request->all() as $key => $value)
             if(!is_null($value))
-                $document->{$key} = $value;
+                $building->{$key} = $value;
 
-        $document->save();
-        return response()->json(JResponse::set(true, 'Se ha actualizado correctamente el edificio', $document));
+        $building->save();
+        return response()->json(JResponse::set(true, 'Se ha actualizado correctamente el edificio', $building));
     }
 
     /**
@@ -66,10 +67,8 @@ class JiDocumentController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function destroy($id){
-        if(is_null($id) || !is_numeric($id)) 
-            return response()->json(JResponse::set(false, 'Error en la petición'));
+        if(is_null($id) || !is_numeric($id))
+            return response()->json(return JResponse::set(false, 'Error en la petición'));
         return 'hi';
     }
 }
-
-

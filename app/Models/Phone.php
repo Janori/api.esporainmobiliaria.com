@@ -4,14 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class JiPhone extends Model
+class Phone extends Model
 {
     protected $table = 'phones';
 
     public function user(){
-    	return $this->belongsTo('App\Models\JiUser');
+    	return $this->belongsTo('App\User');
     }
     public function customer(){
-    	return $this->belongsTo('App\Models\JiCustomer');
+    	return $this->belongsTo('App\Models\Customer');
     }
 }

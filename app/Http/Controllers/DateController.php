@@ -6,11 +6,11 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Models\JiLand;
+use App\Models\JiDate;
 
 use App\Helpers\JResponse;
 
-class JiLandController extends Controller{
+class JiDateController extends Controller{
     /**
      * Store a newly created resource in storage.
      *
@@ -18,9 +18,9 @@ class JiLandController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request){
-        //$land = JiLand::create($request->all());
-        $land = JiLand::oJson($request);
-        return '' . $land;
+        //$date = JiDate::create($request->all());
+        $date = Date::oJson($request);
+        return '' . $date;
     }
 
     /**
@@ -30,12 +30,12 @@ class JiLandController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function show($id){
-        if(is_null($id) || !is_numeric($id)) return response()->json(JResponse::set(false, 'Error en la petición'));
-        $land = JiLand::find($id);
-        if($land == null)
-            return response()->json(JResponse::set(false, 'Terreno no encontrado'));
+        if(is_null($id) || !is_numeric($id)) return JResponse::set(false, 'Error en la petición');
+        $date = Date::find($id);
+        if($date == null)
+            return response()->json(JResponse::set(false, 'Edificio no encontrado'));
         else
-            return response()->json(JResponse::set(true, '', $land));
+            return response()->json(JResponse::set(true, '', $date));
     }
 
     /**
@@ -46,15 +46,16 @@ class JiLandController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id){
-        if(is_null($id) || !is_numeric($id)) return response()->json(JResponse::set(false, 'Error en la petición'));
-        $land = JiLand::find($id);
+        if(is_null($id) || !is_numeric($id)) 
+            return response()->json(JResponse::set(false, 'Error en la petición'));
+        $date = Date::find($id);
 
         foreach ($request->all() as $key => $value)
             if(!is_null($value))
-                $land->{$key} = $value;
+                $date->{$key} = $value;
 
-        $land->save();
-        return response()->json(JResponse::set(true, 'Se han actualizado correctamente los datos del terreno', $land));
+        $date->save();
+        return response()->json(JResponse::set(true, 'Se ha actualizado correctamente el edificio', $date));
     }
 
     /**
@@ -69,5 +70,3 @@ class JiLandController extends Controller{
         return 'hi';
     }
 }
-
-

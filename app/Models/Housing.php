@@ -4,7 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class JiOffice extends Model
+class Housing extends Model
 {
-    protected $table = 'offices';
+    protected $table = 'housings';
+
 }

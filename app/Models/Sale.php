@@ -4,14 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class JiSale extends Model
+class Sale extends Model
 {
     protected $table = 'sale';
 
     function salesMan(){
-    	return $this->belongsTo('App\Models\JiUser');
+    	return $this->belongsTo('App\User');
     }
     function buyer(){
-    	return $this->belongsTo('App\Models\JiCustomer');
+    	return $this->belongsTo('App\Models\Customer');
     }
 }

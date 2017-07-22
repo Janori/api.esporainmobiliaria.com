@@ -6,11 +6,11 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Models\JiDate;
+use App\Models\Document;
 
 use App\Helpers\JResponse;
 
-class JiDateController extends Controller{
+class JiDocumentController extends Controller{
     /**
      * Store a newly created resource in storage.
      *
@@ -18,9 +18,9 @@ class JiDateController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request){
-        //$date = JiDate::create($request->all());
-        $date = JiDate::oJson($request);
-        return '' . $date;
+        //$document = JiDocument::create($request->all());
+        $document = Document::oJson($request);
+        return '' . $document;
     }
 
     /**
@@ -30,12 +30,13 @@ class JiDateController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function show($id){
-        if(is_null($id) || !is_numeric($id)) return JResponse::set(false, 'Error en la petición');
-        $date = JiDate::find($id);
-        if($date == null)
+        if(is_null($id) || !is_numeric($id)) 
+            return response()->json(JResponse::set(false, 'Error en la petición'));
+        $document = Document::find($id);
+        if($document == null)
             return response()->json(JResponse::set(false, 'Edificio no encontrado'));
         else
-            return response()->json(JResponse::set(true, '', $date));
+            return response()->json(JResponse::set(true, '', $document));
     }
 
     /**
@@ -48,14 +49,14 @@ class JiDateController extends Controller{
     public function update(Request $request, $id){
         if(is_null($id) || !is_numeric($id)) 
             return response()->json(JResponse::set(false, 'Error en la petición'));
-        $date = JiDate::find($id);
+        $document = Document::find($id);
 
         foreach ($request->all() as $key => $value)
             if(!is_null($value))
-                $date->{$key} = $value;
+                $document->{$key} = $value;
 
-        $date->save();
-        return response()->json(JResponse::set(true, 'Se ha actualizado correctamente el edificio', $date));
+        $document->save();
+        return response()->json(JResponse::set(true, 'Se ha actualizado correctamente el edificio', $document));
     }
 
     /**
@@ -70,3 +71,5 @@ class JiDateController extends Controller{
         return 'hi';
     }
 }
+
+

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class JiWarehouse extends Model
+class Branch extends Model
 {
-    protected $table = 'warehouse';
+    //
 }

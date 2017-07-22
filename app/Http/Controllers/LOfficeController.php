@@ -6,11 +6,11 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Models\JiHousing;
+use App\Models\Office;
 
 use App\Helpers\JResponse;
 
-class JiHousingController extends Controller{ 
+class JiLOfficeController extends Controller{
     /**
      * Store a newly created resource in storage.
      *
@@ -18,9 +18,9 @@ class JiHousingController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request){
-        //$housing = Jihousing::create($request->all());
-        $housing = Jihousing::oJson($request);
-        return '' . $housing;
+        //$office = JiOffice::create($request->all());
+        $office = Office::oJson($request);
+        return '' . $office;
     }
 
     /**
@@ -30,12 +30,12 @@ class JiHousingController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function show($id){
-        if(is_null($id) || !is_numeric($id)) return JResponse::set(false, 'Error en la petición');
-        $housing = Jihousing::find($id);
-        if($housing == null)
-            return response()->json(JResponse::set(false, 'Casa no encontrada'));
+        if(is_null($id) || !is_numeric($id)) return response()->json(JResponse::set(false, 'Error en la petición'));
+        $office = Office::find($id);
+        if($office == null)
+            return response()->json(JResponse::set(false, 'Officina no encontrada'));
         else
-            return response()->json(JResponse::set(true, '', $housing));
+            return response()->json(JResponse::set(true, '', $office));
     }
 
     /**
@@ -46,15 +46,16 @@ class JiHousingController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id){
-        if(is_null($id) || !is_numeric($id)) return JResponse::set(false, 'Error en la petición');
-        $housing = Jihousing::find($id);
+        if(is_null($id) || !is_numeric($id)) 
+            return response()->json(JResponse::set(false, 'Error en la petición'));
+        $office = Office::find($id);
 
         foreach ($request->all() as $key => $value)
             if(!is_null($value))
-                $housing->{$key} = $value;
+                $office->{$key} = $value;
 
-        $housing->save();
-        return response()->json(JResponse::set(true, 'Se han actualizado correctamente los datos de la casa', $housing));
+        $office->save();
+        return response()->json(JResponse::set(true, 'Se han actualizado correctamente los datos de la oficina', $office));
     }
 
     /**

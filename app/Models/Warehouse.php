@@ -4,8 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class JiHousing extends Model
+class Warehouse extends Model
 {
-    protected $table = 'housings';
-
+    protected $table = 'warehouse';
 }

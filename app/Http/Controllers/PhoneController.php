@@ -6,12 +6,11 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Models\JiLocation;
+use App\Models\Phone;
 
 use App\Helpers\JResponse;
 
-class JiLocationController extends Controller{
-
+class JiPhoneController extends Controller{
     /**
      * Store a newly created resource in storage.
      *
@@ -19,9 +18,9 @@ class JiLocationController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request){
-        //$location = JiLocation::create($request->all());
-        $location = JiLocation::oJson($request);
-        return '' . $location;
+        //$phone = JiPhone::create($request->all());
+        $phone = Phone::oJson($request);
+        return '' . $phone;
     }
 
     /**
@@ -32,12 +31,12 @@ class JiLocationController extends Controller{
      */
     public function show($id){
         if(is_null($id) || !is_numeric($id)) 
-            return response()->json(Response::set(false, 'Error en la petición'));
-        $location = JiLocation::find($id);
-        if($location == null)
-            return response()->json(Response::set(false, 'Location not found'));
+            return response()->json(JResponse::set(false, 'Error en la petición'));
+        $phone = Phone::find($id);
+        if($phone == null)
+            return response()->json(JResponse::set(false, 'Telefono no encontrado'));
         else
-            return response()->json(Response::set(true, '', $location));
+            return response()->json(JResponse::set(true, '', $phone));
     }
 
     /**
@@ -49,15 +48,15 @@ class JiLocationController extends Controller{
      */
     public function update(Request $request, $id){
         if(is_null($id) || !is_numeric($id)) 
-            return response()->json(Response::set(false, 'Error en la petición'));
-        $location = JiLocation::find($id);
+            return response()->json(JResponse::set(false, 'Error en la petición'));
+        $phone = Phone::find($id);
 
         foreach ($request->all() as $key => $value)
             if(!is_null($value))
-                $location->{$key} = $value;
+                $phone->{$key} = $value;
 
-        $location->save();
-        return response()->json(Response::set(true, 'Se ha actualizado correctamente la ubicacion', $location));
+        $phone->save();
+        return response()->json(JResponse::set(true, 'Se han actualizado correctamente los datos del teléfono', $phone));
     }
 
     /**
@@ -68,7 +67,9 @@ class JiLocationController extends Controller{
      */
     public function destroy($id){
         if(is_null($id) || !is_numeric($id)) 
-            return response()->json(Response::set(false, 'Error en la petición'));
+            return response()->json(JResponse::set(false, 'Error en la petición'));
         return 'hi';
     }
 }
+
+

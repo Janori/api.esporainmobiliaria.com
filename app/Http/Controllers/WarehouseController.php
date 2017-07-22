@@ -6,12 +6,11 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Models\JiBranch;
+use App\Models\Warehouse;
 
-use App\Helpers\JResponse;
+use App\Helpers\Response;
 
-class JiBranchController extends Controller{
-
+class JiWarehouseController extends Controller{
     /**
      * Store a newly created resource in storage.
      *
@@ -19,9 +18,9 @@ class JiBranchController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request){
-        //$branch = JiBranch::create($request->all());
-        $branch = JiBranch::oJson($request);
-        return '' . $branch;
+        //$wharehouse = JiWharehouse::create($request->all());
+        $wharehouse = Wharehouse::oJson($request);
+        return '' . $wharehouse;
     }
 
     /**
@@ -33,11 +32,11 @@ class JiBranchController extends Controller{
     public function show($id){
         if(is_null($id) || !is_numeric($id)) 
             return response()->json(JResponse::set(false, 'Error en la petición'));
-        $branch = JiBranch::find($id);
-        if($branch == null)
-            return response()->json(JResponse::set(false, 'Location not found'));
+        $wharehouse = Wharehouse::find($id);
+        if($wharehouse == null)
+            return response()->json(JResponse::set(false, 'Bodega no encontrada'));
         else
-            return response()->json(JResponse::set(true, '', $branch));
+            return response()->json(JResponse::set(true, '', $wharehouse));
     }
 
     /**
@@ -48,16 +47,15 @@ class JiBranchController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id){
-        if(is_null($id) || !is_numeric($id)) 
-            return response()->json(JResponse::set(false, 'Error en la petición'));
-        $branch = JiBranch::find($id);
+        if(is_null($id) || !is_numeric($id)) return JResponse::set(false, 'Error en la petición');
+        $wharehouse = Wharehouse::find($id);
 
         foreach ($request->all() as $key => $value)
             if(!is_null($value))
-                $branch->{$key} = $value;
+                $wharehouse->{$key} = $value;
 
-        $branch->save();
-        return response()->json(JResponse::set(true, 'Se ha actualizado correctamente la ubicacion', $branch));
+        $wharehouse->save();
+        return response()->json(JResponse::set(true, 'Se han actualizado correctamente los datos de la bodega', $wharehouse));
     }
 
     /**
@@ -67,8 +65,9 @@ class JiBranchController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function destroy($id){
-        if(is_null($id) || !is_numeric($id)) 
-            return response()->json(JResponse::set(false, 'Error en la petición'));
+        if(is_null($id) || !is_numeric($id)) return JResponse::set(false, 'Error en la petición');
         return 'hi';
     }
 }
+
+

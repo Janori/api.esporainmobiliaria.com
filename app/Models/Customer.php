@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class JiCustomer extends Model{
+class Customer extends Model{
 
     public static $gender_options = [ 
     	'Masculino' => 'm', 
@@ -32,7 +32,7 @@ class JiCustomer extends Model{
     protected $fillable = ['fname', 'flname', 'user_id'];
 
     public function user(){
-    	return $this->belongsTo('App\Models\JiUser');
+    	return $this->belongsTo('App\Models\User');
     }
 
 }

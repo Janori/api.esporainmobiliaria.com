@@ -4,11 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class JiDocument extends Model
+class Document extends Model
 {
     protected $table = 'documents';
 
     public function POwner(){
-    	return $this->belongsTo('App\Models\JiCustomer');
+    	return $this->belongsTo('App\Models\Customer');
     }
 }
