@@ -21,13 +21,9 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index(){
         $users = User::all();
-        $values = '';
-        foreach ($users as $user) {
-            $values .= $user->fname . '-';
-        }
+        return response()->json(JResponse::set(true, "", $users->toArray()));
     }
 
     /**
