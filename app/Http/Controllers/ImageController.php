@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Building;
 use App\Models\BuildingImages;
+use App\Helpers\JResponse;
 
 use File;
 use Image;
@@ -25,11 +26,11 @@ class ImageController extends Controller{
         $mimeType = File::mimeType($file);
         $ext = $file->getClientOriginalExtension();
         $filename = md5($file->getClientOriginalName() . microtime()) . '.' . $ext;
-        $path = $path = public_path() . '/images/products/' . $filename;
+        $path = $path = public_path() . '/images/bld/' . $filename;
         try{
             Image::make($file->getRealPath())->save($path);   
         }catch(\Exception $ex){
-            return $ex;
+            return response().json(JResponse::set(false, "No se pudo guardar la imagen.", $ex->getMessage()));
         }
 
         return ['path'=>$path, 'id'=>$id];
@@ -37,6 +38,7 @@ class ImageController extends Controller{
         $image->mime = $mimeType;
         $image->save();
         $building->images()->attach($image->id);*/
+        return response().json(JResponse::set(true, 'path', ['path'=> $path]));
     }
 
     public function destroy($id) {
