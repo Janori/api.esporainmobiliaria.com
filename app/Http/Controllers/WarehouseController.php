@@ -10,7 +10,7 @@ use App\Models\Warehouse;
 
 use App\Helpers\Response;
 
-class JiWarehouseController extends Controller{
+class WarehouseController extends Controller{
     /**
      * Store a newly created resource in storage.
      *

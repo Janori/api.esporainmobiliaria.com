@@ -10,7 +10,7 @@ use App\Models\Phone;
 
 use App\Helpers\JResponse;
 
-class JiPhoneController extends Controller{
+class PhoneController extends Controller{
     /**
      * Store a newly created resource in storage.
      *

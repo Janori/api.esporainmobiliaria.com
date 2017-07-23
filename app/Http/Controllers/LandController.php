@@ -10,7 +10,7 @@ use App\Models\Land;
 
 use App\Helpers\JResponse;
 
-class JiLandController extends Controller{
+class LandController extends Controller{
     /**
      * Store a newly created resource in storage.
      *

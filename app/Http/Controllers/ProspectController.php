@@ -10,7 +10,7 @@ use App\Models\Prospect;
 
 use App\Helpers\JResponse;
 
-class JiProspectController extends Controller{
+class ProspectController extends Controller{
     /**
      * Store a newly created resource in storage.
      *

@@ -10,7 +10,7 @@ use App\Models\Sale;
 
 use App\Helpers\JResponse;
 
-class JiSaleController extends Controller{
+class SaleController extends Controller{
     /**
      * Store a newly created resource in storage.
      *

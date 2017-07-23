@@ -6,11 +6,11 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Models\JiBuilding;
+use App\Models\Building;
 
 use App\Helpers\JResponse;
 
-class JiBuildingController extends Controller
+class BuildingController extends Controller
 {
     /**
      * Store a newly created resource in storage.

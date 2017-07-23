@@ -10,7 +10,7 @@ use App\Models\Branch;
 
 use App\Helpers\JResponse;
 
-class JiBranchController extends Controller{
+class BranchController extends Controller{
 
     /**
      * Store a newly created resource in storage.

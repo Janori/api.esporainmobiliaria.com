@@ -6,11 +6,11 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Models\JiDate;
+use App\Models\Date;
 
 use App\Helpers\JResponse;
 
-class JiDateController extends Controller{
+class DateController extends Controller{
     /**
      * Store a newly created resource in storage.
      *

@@ -10,7 +10,7 @@ use App\Models\Housing;
 
 use App\Helpers\JResponse;
 
-class JiHousingController extends Controller{ 
+class HousingController extends Controller{ 
     /**
      * Store a newly created resource in storage.
      *

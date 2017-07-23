@@ -10,7 +10,7 @@ use App\Models\Location;
 
 use App\Helpers\JResponse;
 
-class JiLocationController extends Controller{
+class LocationController extends Controller{
 
     /**
      * Store a newly created resource in storage.

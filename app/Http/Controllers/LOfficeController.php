@@ -10,7 +10,7 @@ use App\Models\Office;
 
 use App\Helpers\JResponse;
 
-class JiLOfficeController extends Controller{
+class LOfficeController extends Controller{
     /**
      * Store a newly created resource in storage.
      *

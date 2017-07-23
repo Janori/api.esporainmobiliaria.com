@@ -89,6 +89,34 @@ class UserController extends Controller
 
         return response()->json(JResponse::set(true, 'El usuario ha sido eliminado'));
     }
+
+    public function changePassword(Request $request, $id = null){
+        $auth = $request->header('Authorization');
+        if(is_null($auth) || empty($auth) || (!is_null($id) && !is_numeric($id))) 
+            return response()->json(JResponse::set(false,'Error en la petición.'));
+        try{
+            $user = JWTAuth::toUser($auth);
+            if($id == null) $id = $user->id;
+            $pass = $request->input('password');
+            if(!($user->kind == "a" || $user->id == $id))
+                return response()->json(JResponse::set(false,'El solicitante no puede cambiar la contraseña.'));
+
+
+            if(is_null($pass) || empty($pass))
+                return response()->json(JResponse::set(false,'La contraseña no puede estar vacia.'));
+            else{
+                $user = User::find($id);
+                if($user == null)
+                    return response()->json(JResponse::set(false,'Hubo un error al cambiar la contraseña.'));
+                
+                $user->password = $pass;
+                $user->save();
+                return response()->json(JResponse::set(true,'Contraseña guardada correctamente.'));
+            }
+        }catch(\Exception $ex){
+            return response()->json(JResponse::set(false,'Hubo un error al cambiar la contraseña.'));
+        }
+    }
 }
 
 
