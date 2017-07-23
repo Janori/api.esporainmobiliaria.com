@@ -33,7 +33,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id){
-        if(is_null($id) || !is_numeric($id)) 
+        if(is_null($id) || !is_numeric($id))
             return response()->json(JResponse::set(false, 'Error en la petición'));
         $users = User::find($id);
         return response()->json(JResponse::set(true, "", $users->toArray()));
@@ -48,7 +48,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id){
-        if(is_null($id) || !is_numeric($id)) 
+        if(is_null($id) || !is_numeric($id))
             return response()->json(JResponse::set(false, 'Error en la petición'));
         $sale = User::find($id);
 
@@ -74,7 +74,7 @@ class UserController extends Controller
             default:
                 return response()->json(JResponse::set(false,'El usuario no tiene un tipo definido'));
         }
-    }   
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -91,18 +91,19 @@ class UserController extends Controller
 
 class Menus{
 
-    public static $admin = [ 
+    public static $admin = [
         ['title' => 'Inicio', 'icon' => 'icon-rocket','url'=> ''],
         ['title' => 'Agentes', 'icon' => 'icon-users','url'=> 'agentes'],
         ['title' => 'Sucursales', 'icon' => 'icon-briefcase','url'=> 'sucursales'],
         ['title' => 'Inmuebles', 'icon' => 'icon-home','url'=> 'inmuebles'],
         ['title' => 'Prospectos', 'icon' => 'icon-user-follow','url'=> 'prospectos'],
         ['title' => 'Ventas', 'icon' => 'icon-bar-chart','url'=> 'ventas'],
-        ['title' => 'Geolocalización', 'icon' => 'icon-pointer','url'=> 'geolocalización']
+        ['title' => 'Geolocalización', 'icon' => 'icon-pointer','url'=> 'geolocalización'],
+        ['title' => 'Usuarios', 'icon' => 'icon-user-following','url'=> 'usuarios']
     ];
 
 
-    public static $supervisor = [ 
+    public static $supervisor = [
         ['title'=> 'Inicio', 'icon'=> 'icon-rocket','url'=> ''],
         ['title'=> 'Agentes', 'icon'=> 'icon-users','url'=> 'agentes'],
         ['title'=> 'Inmuebles', 'icon'=> 'icon-home','url'=> 'inmuebles'],
@@ -111,21 +112,10 @@ class Menus{
         ['title'=> 'Geolocalización', 'icon'=> 'icon-pointer','url'=> 'geolocalización']
     ];
 
-    public static $agente = [ 
+    public static $agente = [
         ['title'=> 'Inicio', 'icon'=> 'icon-rocket','url'=> ''],
         ['title'=> 'Inmuebles', 'icon'=> 'icon-home','url'=> 'inmuebles'],
         ['title'=> 'Prospectos', 'icon'=> 'icon-user-follow','url'=> 'prospectos'],
         ['title'=> 'Geolocalización', 'icon'=> 'icon-pointer','url'=> 'geolocalización']
     ];
 }
-
-
-
-
-
-
-
-
-
-
-
