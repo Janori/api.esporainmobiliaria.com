@@ -24,6 +24,6 @@ composer.phar
 
 
 /node_modules
-
-
+vendor/*
+storage/*
 .env
