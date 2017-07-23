@@ -10,7 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Customer;
 use App\Helpers\JResponse;
 
-class JiCustomerController extends Controller
+class CustomerController extends Controller
 {
     
     public function options($option){
@@ -35,7 +35,6 @@ class JiCustomerController extends Controller
     public function store(Request $request)
     {
         //$customer = JiCustomer::create($request->all());
-        $customer = Customer::oJson($request);
         return '' . $customer;
     }
 
