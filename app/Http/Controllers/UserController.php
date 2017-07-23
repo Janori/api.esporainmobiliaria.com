@@ -57,6 +57,8 @@ class UserController extends Controller
                 $sale->{$key} = $value;
 
         $sale->save();
+
+        return response()->json(JResponse::set(true, 'Usuario editado exitósamente.'));
     }
 
     public function getMenu(Request $request){
