@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\Models\JiCustomer;
+use App\Models\Customer;
 use App\Helpers\JResponse;
 
 class JiCustomerController extends Controller

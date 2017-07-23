@@ -18,6 +18,7 @@ Route::get('/', function () {
 
 Route::post('api/authenticate', 'AuthenticateController@authenticate');
 Route::group(['middleware' => ['jwt.auth', 'cors'], 'prefix'=>'api'], function(){
+	Route::post('building/upload/{id?}', 'ImageController@upload');
 	Route::post('register', 'AuthenticateController@register');
 	Route::get('user/data', 'AuthenticateController@getUserData');
 	Route::get('user/menu', 'UserController@getMenu');
