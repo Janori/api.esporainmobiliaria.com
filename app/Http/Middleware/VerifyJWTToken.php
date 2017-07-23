@@ -29,7 +29,7 @@ class VerifyJWTToken{
                 return response()->json(JResponse::set(false,'token_invalid', $e->getStatusCode()));
             }else{
                 $token = null;
-                return response()->json(JResponse::set(false,'token_is_required'));
+                return response()->json(JResponse::set(false,'token_is_required', $e));
             }
         }
        return $next($request);
