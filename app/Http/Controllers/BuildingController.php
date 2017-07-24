@@ -18,8 +18,8 @@ class BuildingController extends Controller
 {
 
     public function index(){
-        $users = Building::all();
-        return response()->json(JResponse::set(true, "[obj]", $users->toArray()));
+        $buildings = Building::all();
+        return response()->json(JResponse::set(true, "[obj]", $buildings->toArray()));
     }
     /**
      * Store a newly created resource in storage.

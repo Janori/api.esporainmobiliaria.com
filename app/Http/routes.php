@@ -28,7 +28,7 @@ Route::group(['middleware' => ['jwt.auth', 'cors'], 'prefix'=>'api'], function()
 	Route::resource('user', 'UserController', ['except' => ['create', 'store']]);
 
 	Route::get('branch/{id}/users', 'BranchController@users');
-	Route::resource('branch', 'BranchController', ['except' => ['index', 'create']]);
+	Route::resource('branch', 'BranchController', ['except' => ['create']]);
 
 	Route::post('building/upload/{id?}', 'ImageController@upload');
 	Route::resource('building', 'BuildingController', ['except' => ['create']]);

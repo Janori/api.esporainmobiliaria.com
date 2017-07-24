@@ -27,6 +27,12 @@ class BranchController extends Controller{
 
     }
 
+    public function index(){
+        $branches = Branch::all();
+        return response()->json(JResponse::set(true, "[obj]", $branches->toArray()));
+    }
+
+
 
     /**
      * Store a newly created resource in storage.
