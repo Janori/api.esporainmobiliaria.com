@@ -39,11 +39,17 @@ class User extends Model implements AuthenticatableContract,
      */
     protected $hidden = ['password', 'remember_token'];
 
+    protected $appends = ['sucursal'];
+
     protected $dates = ['created_at', 'updated_at'];
 
     public function setPasswordAttribute($value) {
         if(!empty($value))
             $this->attributes['password'] = bcrypt($value);
+    }
+
+    public function getSucursalAttribute(){
+        return $this->branch;
     }
 
     public function getDates(){

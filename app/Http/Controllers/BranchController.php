@@ -12,6 +12,22 @@ use App\Helpers\JResponse;
 
 class BranchController extends Controller{
 
+    public function users($id){
+        if(is_null($id) || !is_numeric($id)) 
+            return response()->json(JResponse::set(false, 'Error en la petición.'));
+        $branch = Branch::find($id);
+        if($branch == null)
+            return response()->json(JResponse::set(false, 'Sucursal no encontrada.'));
+        else{
+            $users = $branch->users;
+            if($users->count() > 0){    
+                return response()->json(JResponse::set(true, 'obj', $users->toArray()));
+            }return response()->json(JResponse::set(false, 'La sucursal no tiene usuarios registrados.'));
+        }
+
+    }
+
+
     /**
      * Store a newly created resource in storage.
      *

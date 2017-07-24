@@ -11,5 +11,7 @@ class Branch extends Model
 
     protected $fillable = ['name','location_id','user_id','extra_data'];
 
-
+    public function users(){
+        return $this->hasMany('App\Users');
+    }
 }
