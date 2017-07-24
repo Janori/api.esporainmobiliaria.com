@@ -22,6 +22,8 @@ Route::group(['middleware' => ['jwt.auth', 'cors'], 'prefix'=>'api'], function()
 	Route::post('register', 'AuthenticateController@register');
 	Route::get('user/data', 'AuthenticateController@getUserData');
 	Route::get('user/menu', 'UserController@getMenu');
+	Route::get('user/{id}/branch', 'UserController@getBranch');
+	Route::get('user/kind/{tipo}', 'UserController@getTipo');
 	Route::put('user/change-password/{id?}', 'UserController@changePassword');
 	Route::resource('user', 'UserController', ['except' => ['create', 'store']]);
 	Route::get('customer/options/{option}', 'CustomerController@options');

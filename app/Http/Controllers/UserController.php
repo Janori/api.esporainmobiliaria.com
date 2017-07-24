@@ -50,13 +50,13 @@ class UserController extends Controller
     public function update(Request $request, $id){
         if(is_null($id) || !is_numeric($id))
             return response()->json(JResponse::set(false, 'Error en la petición'));
-        $sale = User::find($id);
+        $user = User::find($id);
 
         foreach ($request->all() as $key => $value)
             if(!is_null($value))
-                $sale->{$key} = $value;
+                $user->{$key} = $value;
 
-        $sale->save();
+        $user->save();
 
         return response()->json(JResponse::set(true, 'Usuario editado exitósamente.'));
     }
@@ -76,6 +76,25 @@ class UserController extends Controller
             default:
                 return response()->json(JResponse::set(false,'El usuario no tiene un tipo definido'));
         }
+    }
+
+    public function getBranch($id = null){
+        if(is_null($id) || !is_numeric($id))
+            return response()->json(JResponse::set(false, 'Error en la petición'));
+        $user = User::find($id);
+        $branch = $user->branch;
+        if(!is_null($branch)){    
+            return response()->json(JResponse::set(true, 'obj', $branch->toArray()));   
+        }return response()->json(JResponse::set(false, 'El usuario no tiene una sucursal'));   
+    }
+
+    public function getTipo($tipo){
+        if(strlen($tipo) > 1)
+            return response()->json(JResponse::set(false, 'Error en la petición'));
+        $users = User::where('kind','=',$tipo)->get();
+        if($users->count() > 0){    
+            return response()->json(JResponse::set(true, 'obj', $users->toArray()));   
+        }return response()->json(JResponse::set(false, 'No se ha seleccionado un tipo válido.'));   
     }
 
     /**

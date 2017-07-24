@@ -50,6 +50,9 @@ class User extends Model implements AuthenticatableContract,
         return array();
     }
 
+    public function branch(){
+        return $this->belongsTo('App\Models\Branch');
+    }
 
 
 
