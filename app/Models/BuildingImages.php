@@ -11,6 +11,8 @@ class BuildingImages extends Model
 
     protected $fillable = ['building_id', 'path'];
 
+    public $timestamps = false;
+
     public function building(){
     	$this->belongsTo('App\Models\Building');
     }

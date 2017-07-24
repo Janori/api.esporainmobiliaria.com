@@ -37,7 +37,7 @@ class CreateUsersTable extends Migration
             $table->string('estado', 30)->nullable();
             $table->string('pais', 30)->nullable();
 
-            $table->foreign('branch_id')->references('id')->on('branches')->onDelete('cascade');
+            $table->foreign('branch_id')->references('id')->on('branches')->onDelete('null');
         });
     }
 

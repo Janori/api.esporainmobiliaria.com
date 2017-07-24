@@ -7,11 +7,20 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Building;
+use App\Models\Land;
+use App\Models\Warehouse;
+use App\Models\Office;
+use App\Models\Housing;
 
 use App\Helpers\JResponse;
 
 class BuildingController extends Controller
 {
+
+    public function index(){
+        $users = Building::all();
+        return response()->json(JResponse::set(true, "[obj]", $users->toArray()));
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -19,9 +28,25 @@ class BuildingController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request){
-        //$building = JiBuilding::create($request->all());
-        $building = Building::oJson($request);
-        return '' . $building;
+        try {
+            \DB::connection()->getPdo()->beginTransaction();
+            $land = Land::create($request->all()['land']);
+            $warehouse = Warehouse::create($request->all()['warehouse']);
+            $office = Office::create($request->all()['office']);
+            $house = Housing::create($request->all()['house']);
+            $building = Building::create([
+                "land_id" => $land->id,
+                "warehouse_id" => $warehouse->id,
+                "house_id" => $house->id,
+                "office_id" => $office->id,
+                "extra_data" => $request->has('extra_data') ? $request->all()['extra_data'] : ""
+            ]);
+            \DB::connection()->getPdo()->commit();
+            return response()->json(JResponse::set(true, '', $building->toArray()));
+        } catch (\PDOException $e) {
+            \DB::connection()->getPdo()->rollBack();
+            return response()->json(JResponse::set(false, $e->getMessage()));
+        }
     }
 
     /**
@@ -37,7 +62,7 @@ class BuildingController extends Controller
         if($building == null)
             return response()->json(JResponse::set(false, 'Edificio no encontrado'));
         else
-            return response()->json(JResponse::set(true, '', $building));
+            return response()->json(JResponse::set(true, '', $building->toArray()));
     }
 
     /**
@@ -68,7 +93,7 @@ class BuildingController extends Controller
      */
     public function destroy($id){
         if(is_null($id) || !is_numeric($id))
-            return response()->json(return JResponse::set(false, 'Error en la petición'));
+            return response()->json(JResponse::set(false, 'Error en la petición'));
         return 'hi';
     }
 }

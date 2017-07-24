@@ -35,8 +35,7 @@ class BranchController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request){
-        //$branch = JiBranch::create($request->all());
-        $branch = Branch::oJson($request);
+        $branch = Branch::create($request->all());
         return '' . $branch;
     }
 
@@ -51,7 +50,7 @@ class BranchController extends Controller{
             return response()->json(JResponse::set(false, 'Error en la petición'));
         $branch = Branch::find($id);
         if($branch == null)
-            return response()->json(JResponse::set(false, 'Location not found'));
+            return response()->json(JResponse::set(false, 'Sucursal no encontrada'));
         else
             return response()->json(JResponse::set(true, '', $branch));
     }
@@ -71,9 +70,12 @@ class BranchController extends Controller{
         foreach ($request->all() as $key => $value)
             if(!is_null($value))
                 $branch->{$key} = $value;
-
-        $branch->save();
-        return response()->json(JResponse::set(true, 'Se ha actualizado correctamente la ubicacion', $branch));
+        try{
+            $branch->save();
+            return response()->json(JResponse::set(true, 'object', $branch));   
+        }catch(\Exception $ex){
+            return response()->json(JResponse::set(false, 'Ocurrió un error al actualizar la sucursal'));
+        }
     }
 
     /**
