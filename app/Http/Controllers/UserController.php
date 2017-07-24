@@ -16,6 +16,15 @@ use JWTAuth;
 
 class UserController extends Controller
 {
+
+    public function kinds(){
+        $arr = [
+            ['key'=>'a', 'value'=>'Administrador'],
+            ['key'=>'u', 'value'=>'Agente'],
+            ['key'=>'s', 'value'=>'Supervisor']
+        ];
+        return response()->json(JResponse::set(true, "", $arr));
+    }
     /**
      * Display a listing of the resource.
      *
