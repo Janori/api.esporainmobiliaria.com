@@ -92,18 +92,18 @@ class UserController extends Controller
             return response()->json(JResponse::set(false, 'Error en la petición'));
         $user = User::find($id);
         $branch = $user->branch;
-        if(!is_null($branch)){    
-            return response()->json(JResponse::set(true, 'obj', $branch->toArray()));   
-        }return response()->json(JResponse::set(false, 'El usuario no tiene una sucursal'));   
+        if(!is_null($branch)){
+            return response()->json(JResponse::set(true, 'obj', $branch->toArray()));
+        }return response()->json(JResponse::set(false, 'El usuario no tiene una sucursal'));
     }
 
     public function getTipo($tipo){
         if(strlen($tipo) > 1)
             return response()->json(JResponse::set(false, 'Error en la petición'));
         $users = User::where('kind','=',$tipo)->get();
-        if($users->count() > 0){    
-            return response()->json(JResponse::set(true, 'obj', $users->toArray()));   
-        }return response()->json(JResponse::set(false, 'No se ha seleccionado un tipo válido.'));   
+        if($users->count() > 0){
+            return response()->json(JResponse::set(true, 'obj', $users->toArray()));
+        }return response()->json(JResponse::set(false, 'No se ha seleccionado un tipo válido.'));
     }
 
     /**
@@ -120,7 +120,7 @@ class UserController extends Controller
 
     public function changePassword(Request $request, $id = null){
         $auth = $request->header('Authorization');
-        if(is_null($auth) || empty($auth) || (!is_null($id) && !is_numeric($id))) 
+        if(is_null($auth) || empty($auth) || (!is_null($id) && !is_numeric($id)))
             return response()->json(JResponse::set(false,'Error en la petición.'));
         try{
             $user = JWTAuth::toUser($auth);
@@ -136,7 +136,7 @@ class UserController extends Controller
                 $user = User::find($id);
                 if($user == null)
                     return response()->json(JResponse::set(false,'Hubo un error al cambiar la contraseña.'));
-                
+
                 $user->password = $pass;
                 $user->save();
                 return response()->json(JResponse::set(true,'Contraseña guardada correctamente.'));
@@ -155,9 +155,9 @@ class Menus{
         ['title' => 'Agentes', 'icon' => 'icon-users','url'=> 'agentes'],
         ['title' => 'Sucursales', 'icon' => 'icon-briefcase','url'=> 'sucursales'],
         ['title' => 'Inmuebles', 'icon' => 'icon-home','url'=> 'inmuebles'],
-        ['title' => 'Prospectos', 'icon' => 'icon-user-follow','url'=> 'prospectos'],
-        ['title' => 'Ventas', 'icon' => 'icon-bar-chart','url'=> 'ventas'],
-        ['title' => 'Geolocalización', 'icon' => 'icon-pointer','url'=> 'geolocalización'],
+        // ['title' => 'Prospectos', 'icon' => 'icon-user-follow','url'=> 'prospectos'],
+        // ['title' => 'Ventas', 'icon' => 'icon-bar-chart','url'=> 'ventas'],
+        // ['title' => 'Geolocalización', 'icon' => 'icon-pointer','url'=> 'geolocalización'],
         ['title' => 'Usuarios', 'icon' => 'icon-user-following','url'=> 'usuarios']
     ];
 

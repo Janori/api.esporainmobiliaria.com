@@ -27,19 +27,11 @@ class BranchController extends Controller{
 
     }
 
-<<<<<<< Updated upstream
-    public function index(){
-        $branches = Branch::all();
-        return response()->json(JResponse::set(true, "[obj]", $branches->toArray()));
-    }
-
-=======
     public function index() {
         $branches = Branch::all();
 
         return response()->json(JResponse::set(true, "", $branches->toArray()));
     }
->>>>>>> Stashed changes
 
 
     /**
