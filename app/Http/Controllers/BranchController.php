@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Branch;
+use App\Models\Location;
+use App\User;
 
 use App\Helpers\JResponse;
 
@@ -28,7 +30,7 @@ class BranchController extends Controller{
     }
 
     public function index() {
-        $branches = Branch::all();
+        $branches = Branch::with('user', 'users', 'location')->get();
 
         return response()->json(JResponse::set(true, "", $branches->toArray()));
     }
@@ -41,8 +43,16 @@ class BranchController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request){
-        $branch = Branch::create($request->all());
-        return '' . $branch;
+        $branch = new Branch($request->all());
+        $location = $request->input('location');
+        $location = Location::create([
+            'latitude' => $location['latitude'],
+            'longitude' => $location['longitude']
+        ]);
+        $branch->location()->associate($location);
+        $branch->save();
+
+        return response()->json(JResponse::set(true, 'La sucursal se ha creado correctamente'));
     }
 
     /**
@@ -54,7 +64,7 @@ class BranchController extends Controller{
     public function show($id){
         if(is_null($id) || !is_numeric($id))
             return response()->json(JResponse::set(false, 'Error en la petición'));
-        $branch = Branch::find($id);
+        $branch = Branch::where('id', $id)->with('user', 'users', 'location')->first();
         if($branch == null)
             return response()->json(JResponse::set(false, 'Sucursal no encontrada'));
         else
@@ -73,12 +83,12 @@ class BranchController extends Controller{
             return response()->json(JResponse::set(false, 'Error en la petición'));
         $branch = Branch::find($id);
 
-        foreach ($request->all() as $key => $value)
+        foreach ($request->except(['location', 'user', 'users']) as $key => $value)
             if(!is_null($value))
                 $branch->{$key} = $value;
         try{
             $branch->save();
-            return response()->json(JResponse::set(true, 'object', $branch));
+            return response()->json(JResponse::set(true, 'La sucursal se ha editado correctamente', $branch));
         }catch(\Exception $ex){
             return response()->json(JResponse::set(false, 'Ocurrió un error al actualizar la sucursal'));
         }
@@ -93,6 +103,8 @@ class BranchController extends Controller{
     public function destroy($id){
         if(is_null($id) || !is_numeric($id))
             return response()->json(JResponse::set(false, 'Error en la petición'));
-        return 'hi';
+
+        Branch::destroy($id);
+        return response()->json(JResponse::set(true, 'La sucursal ha sido eliminado'));
     }
 }
