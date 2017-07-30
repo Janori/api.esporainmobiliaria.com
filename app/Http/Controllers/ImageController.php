@@ -31,7 +31,9 @@ class ImageController extends Controller{
         $filename = md5($file->getClientOriginalName() . microtime()) . '.' . $ext;
         $path = public_path() . $this->imagesPath . $filename;
         try{
-            Image::make($file->getRealPath())->save($path);   
+            $imageFile = Image::make($file->getRealPath())->save($path);
+            $imageFile->resize(240, 200);
+            $imageFile->save(public_path() . $this->imagesPath . 'thumb_' . $filename);
         }catch(\Exception $ex){
             return response()->json(JResponse::set(false, "No se pudo guardar la imagen.", $ex->getMessage()));
         }
@@ -43,20 +45,7 @@ class ImageController extends Controller{
     }
 
     public function destroy($id) {
-        Image::destroy($id);
+        BuildingImages::destroy($id);
         return response()->json(array('status' => true, 'message' => 'Imagen eliminada correctamente'));
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

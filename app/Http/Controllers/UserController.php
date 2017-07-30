@@ -154,7 +154,7 @@ class Menus{
         ['title' => 'Inicio', 'icon' => 'icon-rocket','url'=> ''],
         ['title' => 'Agentes', 'icon' => 'icon-users','url'=> 'agentes'],
         ['title' => 'Sucursales', 'icon' => 'icon-briefcase','url'=> 'sucursales'],
-        // ['title' => 'Inmuebles', 'icon' => 'icon-home','url'=> 'inmuebles'],
+        ['title' => 'Inmuebles', 'icon' => 'icon-home','url'=> 'inmuebles'],
         // ['title' => 'Prospectos', 'icon' => 'icon-user-follow','url'=> 'prospectos'],
         // ['title' => 'Ventas', 'icon' => 'icon-bar-chart','url'=> 'ventas'],
         // ['title' => 'Geolocalización', 'icon' => 'icon-pointer','url'=> 'geolocalización'],
@@ -165,7 +165,7 @@ class Menus{
     public static $supervisor = [
         ['title'=> 'Inicio', 'icon'=> 'icon-rocket','url'=> ''],
         ['title'=> 'Agentes', 'icon'=> 'icon-users','url'=> 'agentes'],
-        // ['title'=> 'Inmuebles', 'icon'=> 'icon-home','url'=> 'inmuebles'],
+        ['title'=> 'Inmuebles', 'icon'=> 'icon-home','url'=> 'inmuebles'],
         // ['title'=> 'Prospectos', 'icon'=> 'icon-user-follow','url'=> 'prospectos'],
         // ['title'=> 'Ventas', 'icon'=> 'icon-bar-chart','url'=> 'ventas'],
         // ['title'=> 'Geolocalización', 'icon'=> 'icon-pointer','url'=> 'geolocalización']
@@ -173,7 +173,7 @@ class Menus{
 
     public static $agente = [
         ['title'=> 'Inicio', 'icon'=> 'icon-rocket','url'=> ''],
-        // ['title'=> 'Inmuebles', 'icon'=> 'icon-home','url'=> 'inmuebles'],
+        ['title'=> 'Inmuebles', 'icon'=> 'icon-home','url'=> 'inmuebles'],
         // ['title'=> 'Prospectos', 'icon'=> 'icon-user-follow','url'=> 'prospectos'],
         // ['title'=> 'Geolocalización', 'icon'=> 'icon-pointer','url'=> 'geolocalización']
     ];

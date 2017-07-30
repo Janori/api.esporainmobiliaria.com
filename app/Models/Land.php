@@ -12,7 +12,7 @@ class Land extends Model
 
     protected $fillable = ['for_sale','location_id', 'price', 'surface', 'predial_cost'];
 
-    public function land(){
-    	return $this->belongsTo('App\Models\Land');
+    public function location(){
+    	return $this->belongsTo('App\Models\Location');
     }
 }

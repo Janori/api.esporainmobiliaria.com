@@ -32,6 +32,7 @@ Route::group(['middleware' => ['jwt.auth', 'cors']], function(){
 	Route::resource('branch', 'BranchController', ['except' => ['create']]);
 
 	Route::post('building/upload/{id?}', 'ImageController@upload');
+	Route::delete('building/delete/{id?}', 'ImageController@destroy');
 	Route::resource('building', 'BuildingController', ['except' => ['create']]);
 
 	Route::get('customer/options/{option}', 'CustomerController@options');
