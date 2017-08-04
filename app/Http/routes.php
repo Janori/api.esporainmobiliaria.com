@@ -26,14 +26,14 @@ Route::group(['middleware' => ['jwt.auth', 'cors']], function(){
 	Route::get('user/kind/{tipo}', 'UserController@getTipo');
 	Route::get('user/kinds', 'UserController@kinds');
 	Route::put('user/change-password/{id?}', 'UserController@changePassword');
-	Route::resource('user', 'UserController', ['except' => ['create', 'store']]);
+	Route::resource('user', 'UserController', ['except' => ['create']]);
 
 	Route::get('branch/{id}/users', 'BranchController@users');
 	Route::resource('branch', 'BranchController', ['except' => ['create']]);
 
+    Route::resource('building', 'BuildingController', ['except' => ['create']]);
 	Route::post('building/upload/{id?}', 'ImageController@upload');
-	Route::delete('building/delete/{id?}', 'ImageController@destroy');
-	Route::resource('building', 'BuildingController', ['except' => ['create']]);
+	Route::delete('building/delete-image/{id?}', 'ImageController@destroy');
 
 	Route::get('customer/options/{option}', 'CustomerController@options');
 	Route::resource('customer', 'CustomerController', ['except' => ['index', 'create']]);

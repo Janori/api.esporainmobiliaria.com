@@ -48,6 +48,11 @@ class UserController extends Controller
         return response()->json(JResponse::set(true, "", $users->toArray()));
     }
 
+    public function store(Request $request) {
+        $user = User::create($request->all());
+        return response()->json(JResponse::set(true, 'Usuario creado exitósamente.'));
+    }
+
 
     /**
      * Update the specified resource in storage.
