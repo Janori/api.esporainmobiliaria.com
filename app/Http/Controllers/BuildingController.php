@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -172,6 +173,48 @@ class BuildingController extends Controller
         if(is_null($id) || !is_numeric($id))
             return response()->json(JResponse::set(false, 'Error en la petición'));
         Building::destroy($id);
-        return response()->json(JResponse::set(true, 'inmueble eliminado correctamente'));
+        return response()->json(JResponse::set(true, 'Inmueble eliminado correctamente'));
+    }
+
+    public function filter(Request $request) {
+        $buildings = DB::table(with(new Building)->getTable())
+                       ->leftJoin(with(new Land)->getTable(), 'buildings.land_id', '=', 'lands.id')
+                       ->leftJoin(with(new Warehouse)->getTable(), 'buildings.warehouse_id', '=', 'warehouses.id')
+                       ->leftJoin(with(new Office)->getTable(), 'buildings.office_id', '=', 'offices.id')
+                       ->leftJoin(with(new Housing)->getTable(), 'buildings.house_id', '=', 'housings.id');
+
+        switch($request->input('type')) {
+            case 'Casa':
+                $buildings = $buildings
+                ->whereNotNull('warehouse_id')
+                ->whereNotNull('office_id')
+                ->whereNotNull('house_id');
+                break;
+            case 'Oficina':
+                $buildings = $buildings
+                ->whereNotNull('warehouse_id')
+                ->whereNotNull('office_id')
+                ->whereNull('house_id');
+                break;
+            case 'Almacen':
+                $buildings = $buildings
+                ->whereNotNull('warehouse_id')
+                ->whereNull('office_id')
+                ->whereNull('house_id');
+                break;
+        }
+
+        $buildings = $buildings
+                       ->where('for_sale', $request->input('disponibility') == 'Venta' ? 1 : 0)
+                       ->whereBetween('price', [$request->input('price')['from'], $request->input('price')['to']])
+                       ->whereBetween('surface', [$request->input('surface')['from'], $request->input('surface')['to']]);
+
+       if($request->input('type') == 'Oficina' || $request->input('type') == 'Casa')
+        $buildings = $buildings->whereBetween('baths', [$request->input('baths')['from'], $request->input('baths')['to']]);
+        if($request->input('type') == 'Casa')
+        $buildings = $buildings->whereBetween('rooms', [$request->input('rooms')['from'], $request->input('rooms')['to']]);
+        $buildings = $buildings->select('buildings.*', 'lands.for_sale', 'lands.price', 'lands.surface')->get();
+
+        return response()->json(JResponse::set(true, null, $buildings));
     }
 }

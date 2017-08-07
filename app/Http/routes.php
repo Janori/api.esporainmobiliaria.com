@@ -31,6 +31,7 @@ Route::group(['middleware' => ['jwt.auth', 'cors']], function(){
 	Route::get('branch/{id}/users', 'BranchController@users');
 	Route::resource('branch', 'BranchController', ['except' => ['create']]);
 
+    Route::post('buildings/filter', 'BuildingController@filter');
     Route::resource('building', 'BuildingController', ['except' => ['create']]);
 	Route::post('building/upload/{id?}', 'ImageController@upload');
 	Route::delete('building/delete-image/{id?}', 'ImageController@destroy');

@@ -2,6 +2,10 @@
     Header set Access-Control-Allow-Origin "*"
 </IfModule>
 
+<Limit GET POST PUT DELETE>
+  Allow from all
+</Limit>
+
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteRule ^(.*)$ public/$1 [L]
