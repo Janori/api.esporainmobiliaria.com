@@ -17,6 +17,7 @@ Route::get('/', function () {
 
 
 Route::post('authenticate', 'AuthenticateController@authenticate');
+Route::post('lockscreen', 'AuthenticateController@lockscreen');
 Route::group(['middleware' => ['jwt.auth', 'cors']], function(){
 
 	Route::post('register', 'AuthenticateController@register');
@@ -32,6 +33,7 @@ Route::group(['middleware' => ['jwt.auth', 'cors']], function(){
 	Route::resource('branch', 'BranchController', ['except' => ['create']]);
 
     Route::post('buildings/filter', 'BuildingController@filter');
+    Route::post('building/send', 'BuildingController@send');
     Route::resource('building', 'BuildingController', ['except' => ['create']]);
 	Route::post('building/upload/{id?}', 'ImageController@upload');
 	Route::delete('building/delete-image/{id?}', 'ImageController@destroy');

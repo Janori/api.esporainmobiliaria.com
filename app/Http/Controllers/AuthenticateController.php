@@ -23,9 +23,9 @@ class AuthenticateController extends Controller{
 
     public function authenticate(Request $request){
         if($request->has('email')){
-            $credentials = $request->only('email', 'password');   
+            $credentials = $request->only('email', 'password');
         }else{
-            $credentials = $request->only('username', 'password');   
+            $credentials = $request->only('username', 'password');
         }
         try{
             if(!$token = JWTAuth::attempt($credentials)){
@@ -35,8 +35,8 @@ class AuthenticateController extends Controller{
             return response()->json(JResponse::set(false, 'could not create token')); //,500
         }
         return response()->json(
-            JResponse::set(true,'Token successfully created', ['token' => $token, 
-                                                               'ttl' => $this->expirationTime, 
+            JResponse::set(true,'Token successfully created', ['token' => $token,
+                                                               'ttl' => $this->expirationTime,
                                                                'user' => JWTAuth::toUser($token)
                                                                ]));
     }
@@ -70,6 +70,22 @@ class AuthenticateController extends Controller{
     public static function getUserFromToken($token){
         $user = JWTAuth::toUser($token);
         return $user;
+    }
+
+    public function lockscreen(Request $request) {
+        $auth = $request->header('Authorization');
+        $user = JWTAuth::toUser($auth);
+
+        $password = $request->input('password');
+        $hashedPassword = $user->password;
+
+
+        if (Hash::check($password, $hashedPassword)) {
+			return response()->json(JResponse::set(true, null));
+		}
+
+        return response()->json(JResponse::set(false, 'Las contraseñas no coinciden'));
+
     }
 
 }

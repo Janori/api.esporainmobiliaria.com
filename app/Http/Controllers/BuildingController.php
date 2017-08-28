@@ -16,6 +16,8 @@ use App\Models\Housing;
 
 use App\Helpers\JResponse;
 
+use Mail;
+
 class BuildingController extends Controller
 {
 
@@ -216,5 +218,22 @@ class BuildingController extends Controller
         $buildings = $buildings->select('buildings.*', 'lands.for_sale', 'lands.price', 'lands.surface')->get();
 
         return response()->json(JResponse::set(true, null, $buildings));
+    }
+
+    public function send(Request $request) {
+        $building = Building::where('id', $request->input('building_id'))->with('land', 'land.location', 'warehouse', 'office', 'house', 'images')->first();
+        $email    = $request->input('email');
+        Mail::send('emails.building', ['building' => $building], function ($m) use ($email) {
+           $m->from('no-reply@esporainmobiliaria.com', 'Espora Inmobiliaria');
+
+           $m->to($email)->subject('Ficha Técnica de Imueble');
+       });
+
+       if(count(Mail::failures()) > 0)
+         return response()->json(JResponse::set(false, 'Hubo un error al enviar el correo'));
+        else
+        return response()->json(JResponse::set(true, 'Correo enviado con éxito'));
+
+
     }
 }

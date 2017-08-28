@@ -162,7 +162,7 @@ class Menus{
         ['title' => 'Inmuebles', 'icon' => 'icon-home','url'=> 'inmuebles'],
         // ['title' => 'Prospectos', 'icon' => 'icon-user-follow','url'=> 'prospectos'],
         // ['title' => 'Ventas', 'icon' => 'icon-bar-chart','url'=> 'ventas'],
-        // ['title' => 'Geolocalización', 'icon' => 'icon-pointer','url'=> 'geolocalización'],
+        ['title' => 'Geolocalización', 'icon' => 'icon-pointer','url'=> 'geolocalizacion'],
         ['title' => 'Usuarios', 'icon' => 'icon-user-following','url'=> 'usuarios']
     ];
 
@@ -173,13 +173,13 @@ class Menus{
         ['title'=> 'Inmuebles', 'icon'=> 'icon-home','url'=> 'inmuebles'],
         // ['title'=> 'Prospectos', 'icon'=> 'icon-user-follow','url'=> 'prospectos'],
         // ['title'=> 'Ventas', 'icon'=> 'icon-bar-chart','url'=> 'ventas'],
-        // ['title'=> 'Geolocalización', 'icon'=> 'icon-pointer','url'=> 'geolocalización']
+        ['title'=> 'Geolocalización', 'icon'=> 'icon-pointer','url'=> 'geolocalizacion']
     ];
 
     public static $agente = [
         ['title'=> 'Inicio', 'icon'=> 'icon-rocket','url'=> ''],
         ['title'=> 'Inmuebles', 'icon'=> 'icon-home','url'=> 'inmuebles'],
         // ['title'=> 'Prospectos', 'icon'=> 'icon-user-follow','url'=> 'prospectos'],
-        // ['title'=> 'Geolocalización', 'icon'=> 'icon-pointer','url'=> 'geolocalización']
+        ['title'=> 'Geolocalización', 'icon'=> 'icon-pointer','url'=> 'geolocalizacion']
     ];
 }
