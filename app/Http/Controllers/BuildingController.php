@@ -53,7 +53,8 @@ class BuildingController extends Controller
                 "warehouse_id" => $request->has('warehouse') ? $warehouse->id : null,
                 "house_id" => $request->has('house') ? $house->id : null,
                 "office_id" => $request->has('office') ? $office->id : null,
-                "extra_data" => $request->has('extra_data') ? $request->all()['extra_data'] : ""
+                "extra_data" => $request->has('extra_data') ? $request->all()['extra_data'] : "",
+                'type' => $request->input('type')
             ]);
             \DB::connection()->getPdo()->commit();
             return response()->json(JResponse::set(true, 'Inmueble creado correctamente', $building->toArray()));
@@ -91,6 +92,9 @@ class BuildingController extends Controller
         if(is_null($id) || !is_numeric($id))
             return response()->json(JResponse::set(false, 'Error en la petición'));
         $building = Building::find($id);
+
+        $building->type = $request->input('type');
+        $building->extra_data = $request->input('extra_data');
 
         $location = Location::find($request->input('land')['location_id']);
         $location->latitude = $request->input('land')['location']['latitude'];
@@ -179,43 +183,19 @@ class BuildingController extends Controller
     }
 
     public function filter(Request $request) {
+
         $buildings = DB::table(with(new Building)->getTable())
                        ->leftJoin(with(new Land)->getTable(), 'buildings.land_id', '=', 'lands.id')
                        ->leftJoin(with(new Warehouse)->getTable(), 'buildings.warehouse_id', '=', 'warehouses.id')
                        ->leftJoin(with(new Office)->getTable(), 'buildings.office_id', '=', 'offices.id')
-                       ->leftJoin(with(new Housing)->getTable(), 'buildings.house_id', '=', 'housings.id');
-
-        switch($request->input('type')) {
-            case 'Casa':
-                $buildings = $buildings
-                ->whereNotNull('warehouse_id')
-                ->whereNotNull('office_id')
-                ->whereNotNull('house_id');
-                break;
-            case 'Oficina':
-                $buildings = $buildings
-                ->whereNotNull('warehouse_id')
-                ->whereNotNull('office_id')
-                ->whereNull('house_id');
-                break;
-            case 'Almacen':
-                $buildings = $buildings
-                ->whereNotNull('warehouse_id')
-                ->whereNull('office_id')
-                ->whereNull('house_id');
-                break;
-        }
-
-        $buildings = $buildings
+                       ->leftJoin(with(new Housing)->getTable(), 'buildings.house_id', '=', 'housings.id')
+                       ->where('type', $request->input('type'))
                        ->where('for_sale', $request->input('disponibility') == 'Venta' ? 1 : 0)
                        ->whereBetween('price', [$request->input('price')['from'], $request->input('price')['to']])
-                       ->whereBetween('surface', [$request->input('surface')['from'], $request->input('surface')['to']]);
-
-       if($request->input('type') == 'Oficina' || $request->input('type') == 'Casa')
-        $buildings = $buildings->whereBetween('baths', [$request->input('baths')['from'], $request->input('baths')['to']]);
-        if($request->input('type') == 'Casa')
-        $buildings = $buildings->whereBetween('rooms', [$request->input('rooms')['from'], $request->input('rooms')['to']]);
-        $buildings = $buildings->select('buildings.*', 'lands.for_sale', 'lands.price', 'lands.surface')->get();
+                       ->whereBetween('surface', [$request->input('surface')['from'], $request->input('surface')['to']])
+                       ->whereBetween('baths', [$request->input('baths')['from'], $request->input('baths')['to']])
+                       ->whereBetween('rooms', [$request->input('rooms')['from'], $request->input('rooms')['to']])
+                       ->select('buildings.*', 'lands.for_sale', 'lands.price', 'lands.surface')->get();
 
         return response()->json(JResponse::set(true, null, $buildings));
     }

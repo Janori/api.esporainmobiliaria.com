@@ -150,6 +150,13 @@ class UserController extends Controller
             return response()->json(JResponse::set(false,'Hubo un error al cambiar la contraseña.'));
         }
     }
+
+    public function files(Request $request, $user_id, $type) {
+        var_dump($request);
+        var_dump($user_id);
+        var_dump($type);
+        die;
+    }
 }
 
 

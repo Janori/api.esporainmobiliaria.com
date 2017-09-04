@@ -9,7 +9,7 @@ class Building extends Model
 
     protected $table = 'buildings';
 
-    protected $fillable = ['land_id','warehouse_id','office_id','house_id','extra_data'];
+    protected $fillable = ['land_id','warehouse_id','office_id','house_id','extra_data', 'type'];
 
     public function images(){
     	return $this->hasMany('App\Models\BuildingImages');

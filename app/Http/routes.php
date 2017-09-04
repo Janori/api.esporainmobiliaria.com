@@ -21,6 +21,7 @@ Route::post('lockscreen', 'AuthenticateController@lockscreen');
 Route::group(['middleware' => ['jwt.auth', 'cors']], function(){
 
 	Route::post('register', 'AuthenticateController@register');
+    Route::post('user/{id}/files/{type}', 'UserController@files');
 	Route::get('user/data', 'AuthenticateController@getUserData');
 	Route::get('user/menu', 'UserController@getMenu');
 	Route::get('user/{id}/branch', 'UserController@getBranch');
