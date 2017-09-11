@@ -13,10 +13,7 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         $users = array(
-        	['name' => 'Luke Skywalker', 'username' => 'admin', 'kind'=>'a', 'email' => 'luke1@gmail.com', 'password' => 'secret'],
-        	['name' => 'Luke Skywalker', 'username' => 'user1', 'kind'=>'u', 'email' => 'luke2@gmail.com', 'password' => 'secret'],
-        	['name' => 'Luke Skywalker', 'username' => 'user2', 'kind'=>'u', 'email' => 'luke3@gmail.com', 'password' => 'secret'],
-        	['name' => 'Luke Skywalker', 'username' => 'super', 'kind'=>'s', 'email' => 'luke4@gmail.com', 'password' => 'secret'],
+        	['name' => 'Administrador', 'first_surname' => 'Espora',  'username' => 'admin', 'kind' => 'a', 'email' => 'admin@esporainmobiliaria.com', 'password' => '4j8vKqBKx7ZGZuvZ'],
         );
 
         foreach($users as $user){
