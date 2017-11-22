@@ -160,15 +160,16 @@ class UserController extends Controller
 }
 
 
-class Menus{
+class Menus {
 
     public static $admin = [
         ['title' => 'Inicio', 'icon' => 'icon-rocket','url'=> ''],
         ['title' => 'Agentes', 'icon' => 'icon-users','url'=> 'agentes'],
         ['title' => 'Sucursales', 'icon' => 'icon-briefcase','url'=> 'sucursales'],
         ['title' => 'Inmuebles', 'icon' => 'icon-home','url'=> 'inmuebles'],
-        // ['title' => 'Prospectos', 'icon' => 'icon-user-follow','url'=> 'prospectos'],
-        // ['title' => 'Ventas', 'icon' => 'icon-bar-chart','url'=> 'ventas'],
+        ['title' => 'Prospectos', 'icon' => 'icon-user-follow','url'=> 'prospectos'],
+        ['title' => 'Propietarios', 'icon' => 'icon-key','url'=> 'propietarios'],
+        ['title' => 'Ventas', 'icon' => 'icon-bar-chart','url'=> 'ventas'],
         ['title' => 'Geolocalización', 'icon' => 'icon-pointer','url'=> 'geolocalizacion'],
         ['title' => 'Usuarios', 'icon' => 'icon-user-following','url'=> 'usuarios']
     ];
@@ -178,15 +179,17 @@ class Menus{
         ['title'=> 'Inicio', 'icon'=> 'icon-rocket','url'=> ''],
         ['title'=> 'Agentes', 'icon'=> 'icon-users','url'=> 'agentes'],
         ['title'=> 'Inmuebles', 'icon'=> 'icon-home','url'=> 'inmuebles'],
-        // ['title'=> 'Prospectos', 'icon'=> 'icon-user-follow','url'=> 'prospectos'],
-        // ['title'=> 'Ventas', 'icon'=> 'icon-bar-chart','url'=> 'ventas'],
+        ['title'=> 'Prospectos', 'icon'=> 'icon-user-follow','url'=> 'prospectos'],
+        ['title'=> 'Propietarios', 'icon'=> 'icon-key','url'=> 'propietarios'],
+        ['title'=> 'Ventas', 'icon'=> 'icon-bar-chart','url'=> 'ventas'],
         ['title'=> 'Geolocalización', 'icon'=> 'icon-pointer','url'=> 'geolocalizacion']
     ];
 
     public static $agente = [
         ['title'=> 'Inicio', 'icon'=> 'icon-rocket','url'=> ''],
         ['title'=> 'Inmuebles', 'icon'=> 'icon-home','url'=> 'inmuebles'],
-        // ['title'=> 'Prospectos', 'icon'=> 'icon-user-follow','url'=> 'prospectos'],
+        ['title'=> 'Prospectos', 'icon'=> 'icon-user-follow','url'=> 'prospectos'],
+        ['title'=> 'Propietarios', 'icon'=> 'icon-key','url'=> 'propietarios'],
         ['title'=> 'Geolocalización', 'icon'=> 'icon-pointer','url'=> 'geolocalizacion']
     ];
 }

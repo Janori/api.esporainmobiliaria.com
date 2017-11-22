@@ -21,7 +21,7 @@ Route::post('lockscreen', 'AuthenticateController@lockscreen');
 Route::group(['middleware' => ['jwt.auth', 'cors']], function(){
 
 	Route::post('register', 'AuthenticateController@register');
-    Route::post('user/{id}/files/{type}', 'UserController@files');
+    // Route::post('user/{id}/files/{type}', 'UserController@files');
 	Route::get('user/data', 'AuthenticateController@getUserData');
 	Route::get('user/menu', 'UserController@getMenu');
 	Route::get('user/{id}/branch', 'UserController@getBranch');
@@ -40,7 +40,10 @@ Route::group(['middleware' => ['jwt.auth', 'cors']], function(){
 	Route::delete('building/delete-image/{id?}', 'ImageController@destroy');
 
 	Route::get('customer/options/{option}', 'CustomerController@options');
-	Route::resource('customer', 'CustomerController', ['except' => ['index', 'create']]);
+    Route::post('customer/{id}/file', 'CustomerController@file');
+    Route::get('customer/{type}/kind', 'CustomerController@index');
+    Route::resource('customer', 'CustomerController', ['except' => ['index', 'create']]);
+
 	Route::resource('location', 'LocationController', ['except' => ['index', 'create']]);
 	Route::resource('land', 'LandController', ['except' => ['index', 'create']]);
 	Route::resource('warehouse', 'WarehouseController', ['except' => ['index', 'create']]);
@@ -51,4 +54,5 @@ Route::group(['middleware' => ['jwt.auth', 'cors']], function(){
 	Route::resource('sale', 'SaleController', ['except' => ['index', 'create']]);
 	Route::resource('document', 'DocumentController', ['except' => ['index', 'create']]);
 	Route::resource('phone', 'PhoneController', ['except' => ['index', 'create']]);
+
 });

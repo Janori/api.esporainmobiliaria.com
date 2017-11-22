@@ -7,10 +7,11 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Prospect;
+use App\Models\Customer;
 
 use App\Helpers\JResponse;
 
-class ProspectController extends Controller{
+class ProspectController extends Controller {
     /**
      * Store a newly created resource in storage.
      *
@@ -30,7 +31,7 @@ class ProspectController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function show($id){
-        if(is_null($id) || !is_numeric($id)) 
+        if(is_null($id) || !is_numeric($id))
             return response()->json(JResponse::set(false, 'Error en la petición'));
         $prospect = Prospect::find($id);
         if($prospect == null)
@@ -47,7 +48,7 @@ class ProspectController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id){
-        if(is_null($id) || !is_numeric($id)) 
+        if(is_null($id) || !is_numeric($id))
             return response()->json(JResponse::set(false, 'Error en la petición'));
         $prospect = Prospect::find($id);
 
@@ -66,10 +67,8 @@ class ProspectController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function destroy($id){
-        if(is_null($id) || !is_numeric($id)) 
+        if(is_null($id) || !is_numeric($id))
             return response()->json(JResponse::set(false, 'Error en la petición'));
         return 'hi';
     }
 }
-
-

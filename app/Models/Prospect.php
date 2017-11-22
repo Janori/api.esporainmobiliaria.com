@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Prospect extends Model
 {
     protected $table = 'prospects';
+    protected $fillable = ['extra_data'];
 
     public function building(){
     	return $this->belongsTo('App\Models\Building');
@@ -15,6 +16,6 @@ class Prospect extends Model
     	return $this->belongsTo('App\Models\Customer');
     }
     public function user(){
-    	return $this->belongsTo('App\Models\User');
+    	return $this->belongsTo('App\User');
     }
 }

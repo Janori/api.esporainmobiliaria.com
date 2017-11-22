@@ -29,11 +29,14 @@ class ImageController extends Controller{
         $mimeType = File::mimeType($file);
         $ext = $file->getClientOriginalExtension();
         $filename = md5($file->getClientOriginalName() . microtime()) . '.' . $ext;
-        $path = public_path() . $this->imagesPath . $filename;
+        $path = base_path() . $this->imagesPath . $filename;
+        $path = str_replace('laravel/', '', $path);
         try{
             $imageFile = Image::make($file->getRealPath())->save($path);
             $imageFile->resize(240, 200);
-            $imageFile->save(public_path() . $this->imagesPath . 'thumb_' . $filename);
+            $thumbPath = base_path() . $this->imagesPath . 'thumb_' . $filename;
+            $thumbPath = str_replace('laravel/', '', $thumbPath);
+            $imageFile->save($thumbPath);
         }catch(\Exception $ex){
             return response()->json(JResponse::set(false, "No se pudo guardar la imagen.", $ex->getMessage()));
         }
