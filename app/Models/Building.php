@@ -28,5 +28,11 @@ class Building extends Model
     	return $this->belongsTo('App\Models\Housing');
     }
 
+    public function customer() {
+        return $this->belongsTo('App\Models\Customer');
+    }
 
+    public function user() {
+        return $this->belongsTo('App\User');
+    }
 }

@@ -54,7 +54,10 @@ class BuildingController extends Controller
                 "house_id" => $request->has('house') ? $house->id : null,
                 "office_id" => $request->has('office') ? $office->id : null,
                 "extra_data" => $request->has('extra_data') ? $request->all()['extra_data'] : "",
-                'type' => $request->input('type')
+                'type' => $request->input('type'),
+                'address'  => $request->input('address'),
+                'customer_id'  => $request->input('customer_id'),
+                'user_id'  => $request->input('user_id'),
             ]);
             \DB::connection()->getPdo()->commit();
             return response()->json(JResponse::set(true, 'Inmueble creado correctamente', $building->toArray()));
@@ -73,7 +76,7 @@ class BuildingController extends Controller
     public function show($id){
         if(is_null($id) || !is_numeric($id))
             return response()->json(JResponse::set(false, 'Error en la petición'));
-        $building = Building::where('id', $id)->with('land', 'land.location', 'warehouse', 'office', 'house', 'images')->first();
+        $building = Building::where('id', $id)->with('land', 'land.location', 'warehouse', 'office', 'house', 'images', 'customer', 'user')->first();
         if($building == null)
             return response()->json(JResponse::set(false, 'Edificio no encontrado'));
         else
@@ -94,7 +97,10 @@ class BuildingController extends Controller
         $building = Building::find($id);
 
         $building->type = $request->input('type');
-        $building->extra_data = $request->input('extra_data');
+        $building->type = $request->input('type');
+        $building->address = $request->input('address');
+        $building->customer_id = $request->input('customer_id');
+        $building->user_id = $request->input('user_id');
 
         $location = Location::find($request->input('land')['location_id']);
         $location->latitude = $request->input('land')['location']['latitude'];
