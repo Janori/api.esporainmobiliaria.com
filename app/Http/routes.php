@@ -15,6 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('mailtest', 'CustomerController@mailtest');
+
 
 Route::post('authenticate', 'AuthenticateController@authenticate');
 Route::post('lockscreen', 'AuthenticateController@lockscreen');
@@ -39,6 +41,8 @@ Route::group(['middleware' => ['jwt.auth', 'cors']], function(){
 	Route::post('building/upload/{id?}', 'ImageController@upload');
 	Route::delete('building/delete-image/{id?}', 'ImageController@destroy');
 
+	Route::post('customer/campaign', 'CustomerController@campaign');
+	Route::post('customer/prospects', 'CustomerController@prospectsInteresteds');
 	Route::get('customer/options/{option}', 'CustomerController@options');
     Route::post('customer/{id}/file', 'CustomerController@file');
     Route::get('customer/{type}/kind', 'CustomerController@index');

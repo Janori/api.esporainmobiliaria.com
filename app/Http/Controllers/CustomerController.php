@@ -9,10 +9,12 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Customer;
 use App\Models\Prospect;
+use App\Models\Building;
 use App\Helpers\JResponse;
 
 use File;
 use Image;
+use Mail;
 
 class CustomerController extends Controller
 {
@@ -168,6 +170,59 @@ class CustomerController extends Controller
         } catch(\Exception $ex){
             return response()->json(JResponse::set(false, "No se pudo guardar la imagen.", $ex->getMessage()));
         }
+
+    }
+
+    public function prospectsInteresteds(Request $request) {
+        $kind = $request->input('kind');
+        $customers = Customer::whereHas('prospect', function($query) use ($kind){
+            $query->whereIn('building_id', function($query) use ($kind) {
+                $query->select('id')
+                      ->from(with(new Building)->getTable())
+                      ->where('type', $kind);
+            });
+        })->get();
+
+        $buildings = Building::where('type', $kind)->get();
+
+        return response()->json(JResponse::set(true, null, compact('customers', 'buildings')));
+    }
+
+    public function campaign(Request $request) {
+        $customers = $request->input('customers');
+        $buildings = $request->input('Building');
+
+        foreach($customers as &$customers) {
+
+        }
+
+        $email    = $request->input('email');
+        Mail::send('emails.campaign', ['building' => $building], function ($m) use ($email) {
+           $m->from('no-reply@esporainmobiliaria.com', 'Espora Inmobiliaria');
+
+           $m->to($email)->subject('Ficha Técnica de Imueble');
+       });
+
+       if(count(Mail::failures()) > 0)
+         return response()->json(JResponse::set(false, 'Hubo un error al enviar el correo'));
+        else
+        return response()->json(JResponse::set(true, 'Correo enviado con éxito'));
+
+    }
+
+    public function mailtest() {
+
+        return view('emails.campagin');
+        Mail::send('emails.campagin', [], function ($m) {
+           $m->from('no-reply@esporainmobiliaria.com', 'Espora Inmobiliaria');
+
+           $m->to('esandoval@janori.com')->subject('8=====D');
+       });
+
+       if(count(Mail::failures()) > 0)
+         return response()->json(JResponse::set(false, 'Hubo un error al enviar el correo'));
+        else
+        return response()->json(JResponse::set(true, 'Correo enviado con éxito'));
 
     }
 }

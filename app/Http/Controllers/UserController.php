@@ -171,7 +171,8 @@ class Menus {
         ['title' => 'Propietarios', 'icon' => 'icon-key','url'=> 'propietarios'],
         ['title' => 'Ventas', 'icon' => 'icon-bar-chart','url'=> 'ventas'],
         ['title' => 'Geolocalización', 'icon' => 'icon-pointer','url'=> 'geolocalizacion'],
-        ['title' => 'Usuarios', 'icon' => 'icon-user-following','url'=> 'usuarios']
+        ['title' => 'Usuarios', 'icon' => 'icon-user-following','url'=> 'usuarios'],
+        ['title' => 'Campañas', 'icon' => 'icon-envelope','url'=> 'campanias']
     ];
 
 
@@ -182,7 +183,8 @@ class Menus {
         ['title'=> 'Prospectos', 'icon'=> 'icon-user-follow','url'=> 'prospectos'],
         ['title'=> 'Propietarios', 'icon'=> 'icon-key','url'=> 'propietarios'],
         ['title'=> 'Ventas', 'icon'=> 'icon-bar-chart','url'=> 'ventas'],
-        ['title'=> 'Geolocalización', 'icon'=> 'icon-pointer','url'=> 'geolocalizacion']
+        ['title'=> 'Geolocalización', 'icon'=> 'icon-pointer','url'=> 'geolocalizacion'],
+        ['title'=> 'Campañas', 'icon'=> 'icon-envelope','url'=> 'campanias']
     ];
 
     public static $agente = [
@@ -190,6 +192,7 @@ class Menus {
         ['title'=> 'Inmuebles', 'icon'=> 'icon-home','url'=> 'inmuebles'],
         ['title'=> 'Prospectos', 'icon'=> 'icon-user-follow','url'=> 'prospectos'],
         ['title'=> 'Propietarios', 'icon'=> 'icon-key','url'=> 'propietarios'],
-        ['title'=> 'Geolocalización', 'icon'=> 'icon-pointer','url'=> 'geolocalizacion']
+        ['title'=> 'Geolocalización', 'icon'=> 'icon-pointer','url'=> 'geolocalizacion'],
+        ['title'=> 'Campañas', 'icon'=> 'icon-envelope','url'=> 'campanias']
     ];
 }
