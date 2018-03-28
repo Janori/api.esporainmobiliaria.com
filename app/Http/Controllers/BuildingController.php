@@ -13,6 +13,7 @@ use App\Models\Land;
 use App\Models\Warehouse;
 use App\Models\Office;
 use App\Models\Housing;
+use App\Models\Sale;
 
 use App\Helpers\JResponse;
 
@@ -219,7 +220,15 @@ class BuildingController extends Controller
          return response()->json(JResponse::set(false, 'Hubo un error al enviar el correo'));
         else
         return response()->json(JResponse::set(true, 'Correo enviado con éxito'));
+    }
 
+    public function sell(Request $request) {
+        $sale = Sale::create($request->all());
 
+        $building = Building::findOrFail($request->input('building_id'));
+        $building->customer_id = $sale->customer_id;
+        $building->save();
+
+        return response()->json(JResponse::set(true, 'Venta realizada con éxito'));
     }
 }

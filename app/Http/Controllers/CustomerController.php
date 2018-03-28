@@ -95,11 +95,11 @@ class CustomerController extends Controller
     public function show($id){
         if(is_null($id) || !is_numeric($id))
             return response()->json(JResponse::set(false, 'Error en la petición'));
-        $customer = Customer::where('id', $id)->with('prospect', 'prospect.building', 'prospect.user')->first();
-        if($customer == null)
+        $customer = Customer::with('prospect', 'prospect.building', 'prospect.user')->findOrFail($id);
+        if(is_null($customer))
             return response()->json(JResponse::set(false, 'User not found'));
         else
-            return response()->json(JResponse::set(true, '', compact('customer')));
+            return response()->json(JResponse::set(true, null, compact('customer')));
     }
 
     /**

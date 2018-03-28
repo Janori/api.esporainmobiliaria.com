@@ -22,7 +22,6 @@ class AuthenticateController extends Controller{
     private $expirationTime = 60;
 
     public function authenticate(Request $request){
-        dd($request->all());
         if($request->has('email')){
             $credentials = $request->only('email', 'password');
         }else{

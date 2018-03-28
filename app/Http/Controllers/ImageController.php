@@ -29,7 +29,7 @@ class ImageController extends Controller{
         $mimeType = File::mimeType($file);
         $ext = $file->getClientOriginalExtension();
         $filename = md5($file->getClientOriginalName() . microtime()) . '.' . $ext;
-        $path = base_path() . $this->imagesPath . $filename;
+        $path = storage_path() . $this->imagesPath . $filename;
         $path = str_replace('laravel/', '', $path);
         try{
             $imageFile = Image::make($file->getRealPath())->save($path);

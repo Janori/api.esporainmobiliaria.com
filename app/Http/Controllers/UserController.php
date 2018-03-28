@@ -66,10 +66,7 @@ class UserController extends Controller
             return response()->json(JResponse::set(false, 'Error en la petición'));
         $user = User::find($id);
 
-        foreach ($request->all() as $key => $value)
-            if(!is_null($value))
-                $user->{$key} = $value;
-
+        $user->fill($request->all());
         $user->save();
 
         return response()->json(JResponse::set(true, 'Usuario editado exitósamente.'));
@@ -169,7 +166,7 @@ class Menus {
         ['title' => 'Inmuebles', 'icon' => 'icon-home','url'=> 'inmuebles'],
         ['title' => 'Prospectos', 'icon' => 'icon-user-follow','url'=> 'prospectos'],
         ['title' => 'Propietarios', 'icon' => 'icon-key','url'=> 'propietarios'],
-        ['title' => 'Ventas', 'icon' => 'icon-bar-chart','url'=> 'ventas'],
+        ['title' => 'Estadísticas', 'icon' => 'icon-bar-chart','url'=> 'ventas'],
         ['title' => 'Geolocalización', 'icon' => 'icon-pointer','url'=> 'geolocalizacion'],
         ['title' => 'Usuarios', 'icon' => 'icon-user-following','url'=> 'usuarios'],
         ['title' => 'Campañas', 'icon' => 'icon-envelope','url'=> 'campanias']
@@ -182,7 +179,7 @@ class Menus {
         ['title'=> 'Inmuebles', 'icon'=> 'icon-home','url'=> 'inmuebles'],
         ['title'=> 'Prospectos', 'icon'=> 'icon-user-follow','url'=> 'prospectos'],
         ['title'=> 'Propietarios', 'icon'=> 'icon-key','url'=> 'propietarios'],
-        ['title'=> 'Ventas', 'icon'=> 'icon-bar-chart','url'=> 'ventas'],
+        ['title'=> 'Estadísticas', 'icon'=> 'icon-bar-chart','url'=> 'ventas'],
         ['title'=> 'Geolocalización', 'icon'=> 'icon-pointer','url'=> 'geolocalizacion'],
         ['title'=> 'Campañas', 'icon'=> 'icon-envelope','url'=> 'campanias']
     ];
