@@ -34,7 +34,7 @@ class ImageController extends Controller{
         try{
             $imageFile = Image::make($file->getRealPath())->save($path);
             $imageFile->resize(240, 200);
-            $thumbPath = base_path() . $this->imagesPath . 'thumb_' . $filename;
+            $thumbPath = storage_path() . $this->imagesPath . 'thumb_' . $filename;
             $thumbPath = str_replace('laravel/', '', $thumbPath);
             $imageFile->save($thumbPath);
         }catch(\Exception $ex){

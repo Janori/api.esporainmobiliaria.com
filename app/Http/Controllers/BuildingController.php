@@ -231,4 +231,13 @@ class BuildingController extends Controller
 
         return response()->json(JResponse::set(true, 'Venta realizada con éxito'));
     }
+
+    public function removeCustomer($id) {
+        $building = Building::findOrFail($id);
+
+        $building->customer()->dissociate();
+        $building->save();
+
+        return response()->json(JResponse::set(true, 'Venta anulada con éxito'));
+    }
 }
