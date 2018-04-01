@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 
 use App\Http\Controllers\AuthenticateController;
 use App\User;
+use App\Models\Building;
 use App\Helpers\JResponse;
 
 use JWTAuth;
@@ -153,6 +154,47 @@ class UserController extends Controller
         var_dump($user_id);
         var_dump($type);
         die;
+    }
+
+    private function getStartAndEndDate($week, $year) {
+        $dto = new \DateTime();
+        $dto->setISODate($year, $week);
+        $ret['week_start'] = $dto->format('Y-m-d');
+        $dto->modify('+6 days');
+        $ret['week_end'] = $dto->format('Y-m-d');
+        return $ret;
+    }
+
+
+    public function home() {
+
+        $dateLimits = $this->getStartAndEndDate(date('W'), date('Y'));
+        $expiredDate = date('Y-m-d', strtotime('-75 days'));
+
+        $gcNewBuildings = [
+            'value' => Building::where('created_at', '>=', $dateLimits['week_start'])
+                               ->where('created_at', '<=', $dateLimits['week_end'])->count()
+        ];
+
+        $gcActiveBuildings = [
+            'value' => Building::whereNull('customer_id')->count()
+        ];
+        $gcSoldBuildings = [
+            'value' => Building::whereNotNull('customer_id')
+                               ->where('updated_at', '>=', $dateLimits['week_start'])
+                               ->where('updated_at', '<=', $dateLimits['week_end'])->count()
+        ];
+
+        $gcExpiredBuildings = [
+            'value' => Building::whereNull('customer_id')
+                               ->where('created_at', '<', $expiredDate)->count()
+        ];
+
+
+        return compact('gcNewBuildings',
+        'gcActiveBuildings',
+        'gcSoldBuildings',
+        'gcExpiredBuildings');
     }
 }
 
