@@ -240,4 +240,8 @@ class BuildingController extends Controller
 
         return response()->json(JResponse::set(true, 'Venta anulada con éxito'));
     }
+
+    public function zipSearch($zipCode) {
+        return response()->json(JResponse::set(true, 'No se han registrado ventas con este CP'));
+    }
 }
