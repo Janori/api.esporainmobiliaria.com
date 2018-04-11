@@ -23,7 +23,7 @@ class BuildingController extends Controller
 {
 
     public function index(){
-        $buildings = Building::with('land', 'warehouse', 'office', 'house', 'images')->get();
+        $buildings = Building::with('land', 'warehouse', 'office', 'house', 'images')->whereNull('customer_id')->get();
         return response()->json(JResponse::set(true, null, $buildings->toArray()));
     }
     /**
@@ -80,7 +80,7 @@ class BuildingController extends Controller
         $building = Building::where('id', $id)->with('land', 'land.location', 'warehouse', 'office', 'house', 'images', 'customer', 'user')->first();
         $extra_data = DB::table('sales')->where('id', $id)->where('customer_id', $building->customer_id)->first();
         $extra_data = $extra_data->extra_data;
-        
+
         $building->sale = $extra_data;
         if($building == null)
             return response()->json(JResponse::set(false, 'Edificio no encontrado'));
