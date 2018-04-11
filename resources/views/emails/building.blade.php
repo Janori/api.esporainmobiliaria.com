@@ -1,7 +1,12 @@
 <style media="screen">
+@import url('https://fonts.googleapis.com/css?family=Ubuntu');
 body {
 padding: 0;
 margin: 0;
+}
+
+* {
+    font-family: 'Ubuntu', sans-serif !important;
 }
 
 html { -webkit-text-size-adjust:none; -ms-text-size-adjust: none;}
@@ -40,6 +45,59 @@ img.mob_width_50 {
 .table_width_100 {
 width: 680px;
 }
+
+.label.label-sm {
+    font-size: 13px;
+    padding: 2px 5px;
+}
+
+.label-primary {
+    background-color: #337ab7;
+}
+.label {
+    text-shadow: none!important;
+    font-size: 14px;
+    font-weight: 300;
+    padding: 3px 6px;
+    color: #fff;
+}
+.label, .table.table-light>thead>tr>th {
+    font-family: "Open Sans",sans-serif;
+}
+.label-primary {
+    background-color: #337ab7;
+}
+.label {
+    display: inline;
+    padding: .2em .6em .3em;
+    font-size: 75%;
+    font-weight: bold;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25em;
+}
+
+.first-col {
+    font-weight: bold;
+    text-align: left;
+    font-size: 14px;
+}
+
+.second-col {
+    text-align: right;
+    color: #337ab7;
+    font-size: 14px;
+    font-weight: lighter;
+}
+
+.img-thumbnail {
+    max-width: 100%;
+    height: auto;
+}
+
 </style>
 <div id="mailsub" class="notification" align="center">
 
@@ -68,28 +126,60 @@ width: 680px;
 				</div>
 				<!-- padding --><div style="height: 40px; line-height: 40px; font-size: 10px;"> </div>
 			</td></tr>
-			<tr><td align="center">
+            <tr><td align="center">
+                <h4>IMÁGENES</h4>
 				<div style="line-height: 24px;">
 					<font face="Arial, Helvetica, sans-serif" size="4" color="#57697e" style="font-size: 15px;">
 					<span style="font-family: Arial, Helvetica, sans-serif; font-size: 15px; color: #57697e;">
                         <table>
-                            <div class="row" *ngFor="let key of building.land | keys">
-                                <div class="col-sm-6" style="font-weight:bold;font-size: 13px;" *ngIf="['id', 'location', 'location_id'].indexOf(key) == -1">
-                                    <p [innerHTML]="keysEnum.land[key]"></p>
-                                </div>
-                                <div class="col-sm-6" style="text-align: right; color: #5b9bd1;" *ngIf="['id', 'location', 'location_id'].indexOf(key) == -1 && key != 'price'">
-                                    <p [innerHTML]="response(key, building.land[key])"></p>
-                                </div>
-
-                                <div class="col-sm-6" style="text-align: right;" *ngIf="['id', 'location', 'location_id'].indexOf(key) == -1 && key == 'price'">
-                                    <span class="label label-sm label-primary" [innerHTML]="response(key, building.land[key])"></span>
-                                </div>
-                            </div>
-                            <tr><td>En venta</td></td>{{ $building->land->for_sale == '1' ? 'Sí' : 'No' }}</td></tr>
-                            <tr><td>Precio</td></td>$ {{ number_format($building->land->price, 2) }} M.N.</td></tr>
-                            <tr><td>Superficio en m<sup>2</sup></td></td>{{ $building->land->surface }} m<sup>2</sup></td></tr>
-                            <tr><td>Fecha de construcción</td></td>{{ $building->land->building_date }}</td></tr>
+                            @foreach ($building->images as $image)
+                                <tr>
+                                    <td>
+                                        <img src="{{ 'https://esporainmobiliaria.com/api/storage/images/bld/' . $image->path }}" alt="" class="img-thumbnail">
+                                    </td>
+                                </tr>
+                            @endforeach
                         </table>
+
+					</span></font>
+				</div>
+				<!-- padding --><div style="height: 40px; line-height: 40px; font-size: 10px;"> </div>
+			</td></tr>
+            <tr><td align="center">
+                <h4>UBICACIÓN</h4>
+				<div style="line-height: 24px;">
+					<font face="Arial, Helvetica, sans-serif" size="4" color="#57697e" style="font-size: 15px;">
+					<span style="font-family: Arial, Helvetica, sans-serif; font-size: 15px; color: #57697e;">
+                        <table>
+                            <tr>
+                                <td>
+                                    <img width="600" class="img-thumbnail" src="https://maps.googleapis.com/maps/api/staticmap?autoscale=false&size=600x300&maptype=roadmap&format=png&visual_refresh=true&markers=size:mid%7Ccolor:0xff0000%7Clabel:1%7C{{ $building->land->location->latitude }},{{ $building->land->location->longitude }}" >
+                                </td>
+                            </tr>
+                        </table>
+
+					</span></font>
+				</div>
+				<!-- padding --><div style="height: 40px; line-height: 40px; font-size: 10px;"> </div>
+			</td></tr>
+			<tr><td align="center">
+                <h4>CARACTERÍSTICAS</h4>
+				<div style="line-height: 24px;">
+					<font face="Arial, Helvetica, sans-serif" size="4" color="#57697e" style="font-size: 15px;">
+					<span style="font-family: Arial, Helvetica, sans-serif; font-size: 15px; color: #57697e;">
+                        <table>
+                            <tr><td class="first-col">En venta</td><td class="second-col">{{ $building->land->for_sale == '1' ? 'Sí' : 'No' }}</td></tr>
+                            <tr><td class="first-col">Precio</td><td class="second-col"><span class="label label-sm label-primary">$ {{ number_format($building->land->price, 2) }} M.N.</span></td></tr>
+                            <tr><td class="first-col">Superficie en m<sup>2</sup></td><td class="second-col">{{ $building->land->surface }} m<sup>2</sup></td></tr>
+                            <tr><td class="first-col">Fecha de construcción</td><td class="second-col">{{ $building->warehouse->building_date }}</td></tr>
+                            <tr><td class="first-col">Costo del predial</td><td class="second-col">$ {{ number_format($building->land->predial_cost, 2) }} M.N.</td></tr>
+                            <tr><td class="first-col">Es nuevo</td><td class="second-col">{{ $building->warehouse->is_new == '1' ? 'Sí' : 'No' }}</td></tr>
+                            <tr><td class="first-col">Superficio de construcción en m<sup>2</sup></td><td class="second-col">{{ $building->land->surface }} m<sup>2</sup></td></tr>
+                            <tr><td class="first-col">Número de baños</td><td class="second-col">{{ $building->office->baths }}</td></tr>
+                            <tr><td class="first-col">Número de estacionamientos</td><td class="second-col">{{ $building->office->parkings }}</td></tr>
+                            <tr><td class="first-col">Número de cuartos</td><td class="second-col">{{ $building->house->rooms }}</td></tr>
+                        </table>
+
 					</span></font>
 				</div>
 				<!-- padding --><div style="height: 40px; line-height: 40px; font-size: 10px;"> </div>

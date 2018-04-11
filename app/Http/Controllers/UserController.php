@@ -22,7 +22,8 @@ class UserController extends Controller
         $arr = [
             ['key'=>'a', 'value'=>'Administrador'],
             ['key'=>'u', 'value'=>'Agente'],
-            ['key'=>'s', 'value'=>'Supervisor']
+            ['key'=>'s', 'value'=>'Supervisor'],
+            ['key'=>'p', 'value'=>'Partner']
         ];
         return response()->json(JResponse::set(true, "", $arr));
     }
@@ -32,7 +33,8 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(){
-        $users = User::all();
+        $users = User::whereNotIn('kind', ['u', 'a'])->get();
+
         return response()->json(JResponse::set(true, "", $users->toArray()));
     }
 

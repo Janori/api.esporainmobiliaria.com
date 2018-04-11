@@ -208,8 +208,10 @@ class BuildingController extends Controller
     }
 
     public function send(Request $request) {
-        $building = Building::where('id', $request->input('building_id'))->with('land', 'land.location', 'warehouse', 'office', 'house', 'images')->first();
+        $building = Building::with('land', 'land.location', 'warehouse', 'office', 'house', 'images')->findOrFail($request->input('building_id'));
         $email    = $request->input('email');
+
+        // return view('emails.building', ['building' => $building]);
         Mail::send('emails.building', ['building' => $building], function ($m) use ($email) {
            $m->from('no-reply@esporainmobiliaria.com', 'Espora Inmobiliaria');
 
