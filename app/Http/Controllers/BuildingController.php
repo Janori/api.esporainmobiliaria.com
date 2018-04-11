@@ -78,6 +78,10 @@ class BuildingController extends Controller
         if(is_null($id) || !is_numeric($id))
             return response()->json(JResponse::set(false, 'Error en la petición'));
         $building = Building::where('id', $id)->with('land', 'land.location', 'warehouse', 'office', 'house', 'images', 'customer', 'user')->first();
+        $extra_data = DB::table('sales')->where('id', $id)->where('customer_id', $building->customer_id)->first();
+        $extra_data = $extra_data->extra_data;
+        
+        $building->sale = $extra_data;
         if($building == null)
             return response()->json(JResponse::set(false, 'Edificio no encontrado'));
         else
