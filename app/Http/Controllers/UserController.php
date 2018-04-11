@@ -22,7 +22,7 @@ class UserController extends Controller
         $arr = [
             ['key'=>'a', 'value'=>'Administrador'],
             ['key'=>'u', 'value'=>'Agente'],
-            ['key'=>'s', 'value'=>'Supervisor'],
+            ['key'=>'s', 'value'=>'Gerente'],
             ['key'=>'p', 'value'=>'Partner']
         ];
         return response()->json(JResponse::set(true, "", $arr));
@@ -33,7 +33,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(){
-        $users = User::whereNotIn('kind', ['u', 'a'])->get();
+        $users = User::whereNotIn('kind', ['a'])->get();
 
         return response()->json(JResponse::set(true, "", $users->toArray()));
     }
@@ -210,7 +210,7 @@ class Menus {
 
     public static $admin = [
         ['title' => 'Inicio', 'icon' => 'icon-rocket','url'=> ''],
-        ['title' => 'Agentes', 'icon' => 'icon-users','url'=> 'agentes'],
+        // ['title' => 'Agentes', 'icon' => 'icon-users','url'=> 'agentes'],
         ['title' => 'Sucursales', 'icon' => 'icon-briefcase','url'=> 'sucursales'],
         ['title' => 'Inmuebles', 'icon' => 'icon-home','url'=> 'inmuebles'],
         ['title' => 'Prospectos', 'icon' => 'icon-user-follow','url'=> 'prospectos'],
@@ -224,7 +224,7 @@ class Menus {
 
     public static $supervisor = [
         ['title'=> 'Inicio', 'icon'=> 'icon-rocket','url'=> ''],
-        ['title'=> 'Agentes', 'icon'=> 'icon-users','url'=> 'agentes'],
+        // ['title'=> 'Agentes', 'icon'=> 'icon-users','url'=> 'agentes'],
         ['title'=> 'Inmuebles', 'icon'=> 'icon-home','url'=> 'inmuebles'],
         ['title'=> 'Prospectos', 'icon'=> 'icon-user-follow','url'=> 'prospectos'],
         ['title'=> 'Propietarios', 'icon'=> 'icon-key','url'=> 'propietarios'],
