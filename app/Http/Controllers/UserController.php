@@ -174,23 +174,28 @@ class UserController extends Controller
         $expiredDate = date('Y-m-d', strtotime('-75 days'));
 
         $gcNewBuildings = [
-            'value' => Building::where('created_at', '>=', $dateLimits['week_start'])
-                               ->where('created_at', '<=', $dateLimits['week_end'])->count()
+            'data' => Building::where('created_at', '>=', $dateLimits['week_start'])
+                               ->where('created_at', '<=', $dateLimits['week_end'])->with('land', 'warehouse', 'office', 'house', 'images')->get()
         ];
 
         $gcActiveBuildings = [
-            'value' => Building::whereNull('customer_id')->count()
+            'data' => Building::whereNull('customer_id')->with('land', 'warehouse', 'office', 'house', 'images')->get()
         ];
         $gcSoldBuildings = [
-            'value' => Building::whereNotNull('customer_id')
+            'data' => Building::whereNotNull('customer_id')
                                ->where('updated_at', '>=', $dateLimits['week_start'])
-                               ->where('updated_at', '<=', $dateLimits['week_end'])->count()
+                               ->where('updated_at', '<=', $dateLimits['week_end'])->with('land', 'warehouse', 'office', 'house', 'images')->get()
         ];
 
         $gcExpiredBuildings = [
-            'value' => Building::whereNull('customer_id')
-                               ->where('created_at', '<', $expiredDate)->count()
+            'data' => Building::whereNull('customer_id')
+                               ->where('created_at', '<', $expiredDate)->with('land', 'warehouse', 'office', 'house', 'images')->get()
         ];
+
+        $gcNewBuildings['value']     = count($gcNewBuildings    ['data']);
+        $gcActiveBuildings['value']  = count($gcActiveBuildings ['data']);
+        $gcSoldBuildings['value']    = count($gcSoldBuildings   ['data']);
+        $gcExpiredBuildings['value'] = count($gcExpiredBuildings['data']);
 
 
         return compact('gcNewBuildings',
