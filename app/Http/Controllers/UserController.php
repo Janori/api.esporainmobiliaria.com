@@ -32,10 +32,19 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(){
-        $users = User::whereNotIn('kind', ['a'])->get();
+    public function index(Request $request){
+        $auth = $request->header('Authorization');
+        $user = JWTAuth::toUser($auth);
 
-        return response()->json(JResponse::set(true, "", $users->toArray()));
+        if($user->kind == 'a') {
+            $users = User::where('kind', 'p')->get();
+            // foreach($users as $user)
+                // dd($user->password);
+        }
+        else
+            $users = User::whereNotIn('kind', ['a'])->get();
+
+        return response()->json(JResponse::set(true, "", compact('users')));
     }
 
     /**
@@ -87,6 +96,8 @@ class UserController extends Controller
                 return response()->json(JResponse::set(true,'array', Menus::$agente));
             case 's':
                 return response()->json(JResponse::set(true,'array', Menus::$supervisor));
+            case 'p':
+                return response()->json(JResponse::set(true,'array', Menus::$partner));
             default:
                 return response()->json(JResponse::set(false,'El usuario no tiene un tipo definido'));
         }
@@ -210,6 +221,14 @@ class Menus {
 
     public static $admin = [
         ['title' => 'Inicio', 'icon' => 'icon-rocket','url'=> ''],
+        ['title' => 'Partners', 'icon' => 'icon-users','url'=> 'usuarios'],
+        ['title' => 'Inmuebles', 'icon' => 'icon-home','url'=> 'inmuebles'],
+        ['title' => 'Estadísticas', 'icon' => 'icon-bar-chart','url'=> 'ventas'],
+        ['title' => 'Geolocalización', 'icon' => 'icon-pointer','url'=> 'geolocalizacion'],
+    ];
+
+    public static $partner = [
+        ['title' => 'Inicio', 'icon' => 'icon-rocket','url'=> ''],
         // ['title' => 'Agentes', 'icon' => 'icon-users','url'=> 'agentes'],
         ['title' => 'Sucursales', 'icon' => 'icon-briefcase','url'=> 'sucursales'],
         ['title' => 'Inmuebles', 'icon' => 'icon-home','url'=> 'inmuebles'],
@@ -220,7 +239,6 @@ class Menus {
         ['title' => 'Usuarios', 'icon' => 'icon-user-following','url'=> 'usuarios'],
         ['title' => 'Campañas', 'icon' => 'icon-envelope','url'=> 'campanias']
     ];
-
 
     public static $supervisor = [
         ['title'=> 'Inicio', 'icon'=> 'icon-rocket','url'=> ''],

@@ -18,6 +18,7 @@ Route::get('/', function () {
 Route::get('mailtest', 'CustomerController@mailtest');
 
 
+Route::post('authenticate/custom', 'AuthenticateController@authenticateCustom');
 Route::post('authenticate', 'AuthenticateController@authenticate');
 Route::post('lockscreen', 'AuthenticateController@lockscreen');
 Route::group(['middleware' => ['jwt.auth', 'cors']], function(){

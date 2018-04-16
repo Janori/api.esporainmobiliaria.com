@@ -41,6 +41,22 @@ class AuthenticateController extends Controller{
                                                                ]));
     }
 
+    public function authenticateCustom(Request $request){
+        $credentials = $request->only('id');
+        try{
+            if(!$token = JWTAuth::attemptById($request->id)){
+                return response()->json(JResponse::set(false, 'invalid credentials')); //,401
+            }
+        }catch(JWTException $e){
+            return response()->json(JResponse::set(false, 'could not create token')); //,500
+        }
+        return response()->json(
+            JResponse::set(true,'Token successfully created', ['token' => $token,
+                                                               'ttl' => $this->expirationTime,
+                                                               'user' => JWTAuth::toUser($token)
+                                                               ]));
+    }
+
     public function register(Request $request){
         $user = new User($request->all());
         try {
